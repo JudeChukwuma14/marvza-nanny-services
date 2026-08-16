@@ -38,46 +38,11 @@ function extractError(err) {
  * Submit the complete candidate application.
  * Sends as multipart/form-data so files are included.
  *
- * @param {Object} formData - All RHF form values
+ * @param {FormData} formData - Prepared FormData object
  * @returns {Promise<{ reference: string }>}
  */
 export async function submitApplication(formData) {
-  const payload = new FormData()
-
-  // Extract file fields before JSON serialisation
-  const FILE_FIELDS = ['docId', 'docDBS', 'docPFA', 'docQual', 'docRTW', 'docOther', 'dbsCertFiles', 'rtwFiles']
-
-  // Build a clean copy of formData without File objects
-  const jsonData = { ...formData }
-  FILE_FIELDS.forEach((field) => delete jsonData[field])
-
-  // Append all non-file fields as a single JSON string
-  // The backend reads req.body fields when Content-Type is multipart
-  Object.entries(jsonData).forEach(([key, value]) => {
-    if (value === undefined || value === null) return
-    if (Array.isArray(value)) {
-      // Axios FormData requires arrays to be appended individually or serialised
-      payload.append(key, JSON.stringify(value))
-    } else if (typeof value === 'object') {
-      payload.append(key, JSON.stringify(value))
-    } else {
-      payload.append(key, String(value))
-    }
-  })
-
-  // Append each file field
-  FILE_FIELDS.forEach((field) => {
-    const files = formData[field]
-    if (!files) return
-    const fileList = Array.isArray(files) ? files : [files]
-    fileList.forEach((file) => {
-      if (file instanceof File) {
-        payload.append(field, file)
-      }
-    })
-  })
-
-  const response = await api.post('/applications', payload, {
+  const response = await api.post('/applications', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   })
 

@@ -1,13 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import FormField, { Input, Select, SectionHeader } from '../ui/FormField'
-
-const NATIONALITIES = [
-  'British', 'Irish', 'American', 'Australian', 'Canadian', 'South African',
-  'French', 'German', 'Italian', 'Spanish', 'Polish', 'Portuguese',
-  'Romanian', 'Bulgarian', 'Croatian', 'Czech', 'Slovak', 'Hungarian',
-  'Philippine', 'Indian', 'Sri Lankan', 'Nepalese', 'Nigerian', 'Ghanaian',
-  'Zimbabwean', 'Other'
-]
+import FormField, { Input, SectionHeader } from '../ui/FormField'
 
 export default function Step01PersonalDetails() {
   const { register, formState: { errors } } = useFormContext()
@@ -21,34 +13,36 @@ export default function Step01PersonalDetails() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <FormField
-          label="Full name"
-          htmlFor="fullName"
+          label="First Name"
+          htmlFor="firstName"
           required
-          error={errors.fullName?.message}
-          className="sm:col-span-2"
+          error={errors.firstName?.message}
         >
           <Input
-            id="fullName"
-            placeholder="e.g. Jane Elizabeth Smith"
-            hasError={!!errors.fullName}
-            {...register('fullName', {
-              required: 'Full name is required',
+            id="firstName"
+            placeholder="e.g. Jane"
+            hasError={!!errors.firstName}
+            {...register('firstName', {
+              required: 'First name is required',
               minLength: { value: 2, message: 'Please enter at least 2 characters' },
             })}
           />
         </FormField>
 
         <FormField
-          label="Preferred name"
-          htmlFor="preferredName"
-          error={errors.preferredName?.message}
-          hint="The name you like to go by (optional)"
+          label="Last Name"
+          htmlFor="lastName"
+          required
+          error={errors.lastName?.message}
         >
           <Input
-            id="preferredName"
-            placeholder="e.g. Jane"
-            hasError={!!errors.preferredName}
-            {...register('preferredName')}
+            id="lastName"
+            placeholder="e.g. Smith"
+            hasError={!!errors.lastName}
+            {...register('lastName', {
+              required: 'Last name is required',
+              minLength: { value: 2, message: 'Please enter at least 2 characters' },
+            })}
           />
         </FormField>
 
@@ -108,20 +102,35 @@ export default function Step01PersonalDetails() {
           />
         </FormField>
 
+        {/* Empty space filler for layout matching */}
+        <div className="hidden sm:block"></div>
+
         <FormField
-          label="Address"
-          htmlFor="address"
+          label="Address Line 1"
+          htmlFor="address1"
           required
-          error={errors.address?.message}
-          className="sm:col-span-2"
+          error={errors.address1?.message}
         >
           <Input
-            id="address"
+            id="address1"
             placeholder="House number and street name"
-            hasError={!!errors.address}
-            {...register('address', {
-              required: 'Address is required',
+            hasError={!!errors.address1}
+            {...register('address1', {
+              required: 'Address Line 1 is required',
             })}
+          />
+        </FormField>
+
+        <FormField
+          label="Address Line 2"
+          htmlFor="address2"
+          error={errors.address2?.message}
+        >
+          <Input
+            id="address2"
+            placeholder="Apartment, suite, unit, etc. (optional)"
+            hasError={!!errors.address2}
+            {...register('address2')}
           />
         </FormField>
 
@@ -159,38 +168,18 @@ export default function Step01PersonalDetails() {
         </FormField>
 
         <FormField
-          label="Nationality"
-          htmlFor="nationality"
+          label="Area / Location"
+          htmlFor="area"
           required
-          error={errors.nationality?.message}
-        >
-          <Select
-            id="nationality"
-            hasError={!!errors.nationality}
-            {...register('nationality', {
-              required: 'Nationality is required',
-            })}
-          >
-            <option value="">Select nationality</option>
-            {NATIONALITIES.map(n => (
-              <option key={n} value={n}>{n}</option>
-            ))}
-          </Select>
-        </FormField>
-
-        <FormField
-          label="Languages spoken"
-          htmlFor="languages"
-          required
-          error={errors.languages?.message}
-          hint="List all languages you speak, including English"
+          error={errors.area?.message}
+          className="sm:col-span-2"
         >
           <Input
-            id="languages"
-            placeholder="e.g. English, French, Spanish"
-            hasError={!!errors.languages}
-            {...register('languages', {
-              required: 'Please list the languages you speak',
+            id="area"
+            placeholder="e.g. South West London"
+            hasError={!!errors.area}
+            {...register('area', {
+              required: 'Area or location is required',
             })}
           />
         </FormField>

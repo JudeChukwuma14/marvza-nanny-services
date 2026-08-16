@@ -2,32 +2,22 @@ import { Baby } from 'lucide-react'
 
 const STEPS = [
   { number: 1, label: 'Personal' },
-  { number: 2, label: 'Experience' },
-  { number: 3, label: 'Qualifications' },
-  { number: 4, label: 'DBS' },
-  { number: 5, label: 'Right to Work' },
-  { number: 6, label: 'References' },
-  { number: 7, label: 'Availability' },
-  { number: 8, label: 'Skills' },
-  { number: 9, label: 'About You' },
-  { number: 10, label: 'Documents' },
-  { number: 11, label: 'Declaration' },
-  { number: 12, label: 'Review' },
+  { number: 2, label: 'Work' },
+  { number: 3, label: 'Experience' },
+  { number: 4, label: 'Skills' },
+  { number: 5, label: 'Qualifications' },
+  { number: 6, label: 'Documents' },
+  { number: 7, label: 'Declaration' },
 ]
 
 const STEP_FULL_NAMES = [
   'Personal Details',
-  'Nanny & Childcare Experience',
-  'Qualifications & Training',
-  'DBS / Background Checks',
-  'Right to Work',
-  'References',
-  'Availability',
-  'Skills',
-  'About You',
+  'Work Preferences',
+  'Childcare Experience',
+  'Skills & Interests',
+  'Qualifications',
   'Documents',
-  'Declaration & Consent',
-  'Review & Submit',
+  'Declaration',
 ]
 
 export default function StepProgress({ currentStep }) {
