@@ -133,10 +133,15 @@ export default function AdminApplicationsPage() {
                 applications.map(app => (
                   <tr key={app._id} className="hover:bg-[#F7F5F0]/50 transition-colors group">
                     <td className="px-6 py-4 text-sm font-medium text-[#0F4C5C]">{app.applicationReference}</td>
-                    {/* Data is now nested under personalDetails */}
-                    <td className="px-6 py-4 text-sm text-[#17202A] font-medium">{app.personalDetails?.fullName || 'N/A'}</td>
-                    <td className="px-6 py-4 text-sm text-[#667085]">{app.experience?.yearsChildcareExp || 'N/A'}</td>
-                    <td className="px-6 py-4 text-sm text-[#667085]">{app.personalDetails?.city || 'N/A'}</td>
+                    <td className="px-6 py-4 text-sm text-[#17202A] font-medium">
+                      {[app.personalDetails?.firstName, app.personalDetails?.lastName].filter(Boolean).join(' ') || 'N/A'}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-[#667085]">
+                      {app.experience?.professionalChildcareExperienceYears != null
+                        ? `${app.experience.professionalChildcareExperienceYears} yr${app.experience.professionalChildcareExperienceYears !== 1 ? 's' : ''}`
+                        : 'N/A'}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-[#667085]">{app.personalDetails?.area || app.personalDetails?.city || 'N/A'}</td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${STATUS_COLORS[app.status] || 'bg-gray-100 text-gray-800'}`}>
                         {app.status}

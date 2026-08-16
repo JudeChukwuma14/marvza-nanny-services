@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import AdminLayout from '../../components/layout/AdminLayout'
 import { fetchApplication, updateApplicationStatus, addNote, getNotes, getDocuments } from '../../api/applications'
-import { ArrowLeft, User, Briefcase, FileText, CheckCircle, Clock, MessageSquare, Paperclip } from 'lucide-react'
+import { ArrowLeft, User, Briefcase, FileText, CheckCircle, Clock, MessageSquare, Paperclip, Shield } from 'lucide-react'
 
 const STATUSES = [
   'New', 'Under Review', 'Documents Pending', 'References',
@@ -41,6 +41,16 @@ function DataItem({ label, value, fullWidth = false }) {
       <p className="text-xs font-medium text-[#667085] mb-1">{label}</p>
       <p className="text-sm text-[#17202A] break-words">{displayValue}</p>
     </div>
+  )
+}
+
+function Badge({ label, positive = true }) {
+  return (
+    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
+      positive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+    }`}>
+      {label}
+    </span>
   )
 }
 
@@ -121,30 +131,22 @@ export default function AdminApplicationDetailPage() {
     )
   }
 
-  // Destructure nested schema
-  const { personalDetails: pd, experience: exp, qualifications: qual,
-    dbs, rightToWork: rtw, availability: avail, skills, about, declaration, references } = app
+  // Destructure new nested schema
+  const {
+    personalDetails: pd,
+    workPreferences: wp,
+    experience: exp,
+    skills: sk,
+    qualifications: qual,
+    additionalInfo: addInfo,
+    declaration: decl,
+  } = app
 
-  const availableDays = avail?.daysAvailable || []
-
-  const skillsList = [
-    skills?.skillDriving && 'Driving licence',
-    skills?.skillCar && 'Own vehicle',
-    skills?.skillNewborn && 'Newborn care',
-    skills?.skillCooking && 'Cooking',
-    skills?.skillHomework && 'Homework support',
-    skills?.skillSwimming && 'Swimming',
-    skills?.skillLanguages && 'Additional languages',
-    skills?.skillSEN && 'SEN experience',
-    skills?.skillSleep && 'Sleep training',
-    skills?.skillSchoolRuns && 'School runs',
-    skills?.skillOther && 'Other skills',
-  ].filter(Boolean)
-
+  const fullName = [pd?.firstName, pd?.lastName].filter(Boolean).join(' ') || '—'
   const statusColorClass = STATUS_COLORS[app.status] || 'border-[#E4E7EC] text-[#17202A] bg-white'
 
   return (
-    <AdminLayout title={pd?.fullName || 'Application'}>
+    <AdminLayout title={fullName}>
       <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
         <Link
           to="/admin/applications"
@@ -179,133 +181,145 @@ export default function AdminApplicationDetailPage() {
           <p className="text-base font-bold text-[#0F4C5C]">{app.applicationReference}</p>
         </div>
         <div>
+          <p className="text-xs text-[#667085] uppercase tracking-wider mb-1">Candidate</p>
+          <p className="text-base font-medium text-[#17202A]">{fullName}</p>
+        </div>
+        <div>
+          <p className="text-xs text-[#667085] uppercase tracking-wider mb-1">Experience</p>
+          <p className="text-base font-medium text-[#17202A]">
+            {exp?.professionalChildcareExperienceYears != null
+              ? `${exp.professionalChildcareExperienceYears} yr${exp.professionalChildcareExperienceYears !== 1 ? 's' : ''}`
+              : '—'}
+          </p>
+        </div>
+        <div>
           <p className="text-xs text-[#667085] uppercase tracking-wider mb-1">Date Applied</p>
           <p className="text-base font-medium text-[#17202A]">
             {new Date(app.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
-        </div>
-        <div>
-          <p className="text-xs text-[#667085] uppercase tracking-wider mb-1">Experience</p>
-          <p className="text-base font-medium text-[#17202A]">{exp?.yearsChildcareExp || '—'}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left column */}
         <div className="flex flex-col gap-6">
+          {/* Personal Details */}
           <DetailCard title="Personal Details" icon={User}>
             <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-              <DataItem label="Full name" value={pd?.fullName} />
-              <DataItem label="Preferred name" value={pd?.preferredName} />
+              <DataItem label="First name" value={pd?.firstName} />
+              <DataItem label="Last name" value={pd?.lastName} />
               <DataItem label="Date of birth" value={pd?.dateOfBirth} />
-              <DataItem label="Nationality" value={pd?.nationality} />
               <DataItem label="Email" value={pd?.email} />
               <DataItem label="Phone" value={pd?.phone} />
-              <DataItem label="Address" value={pd?.address} fullWidth />
+              <DataItem label="Area" value={pd?.area} />
+              <DataItem label="Address Line 1" value={pd?.address1} fullWidth />
+              <DataItem label="Address Line 2" value={pd?.address2} fullWidth />
               <DataItem label="Town / City" value={pd?.city} />
               <DataItem label="Postcode" value={pd?.postcode} />
-              <DataItem label="Languages" value={pd?.languages} fullWidth />
             </div>
           </DetailCard>
 
-          <DetailCard title="Experience & Qualifications" icon={Briefcase}>
+          {/* Experience */}
+          <DetailCard title="Childcare Experience" icon={Briefcase}>
             <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-6 pb-6 border-b border-[#E4E7EC]">
-              <DataItem label="Childcare experience" value={exp?.yearsChildcareExp} />
-              <DataItem label="Nanny experience" value={exp?.yearsNannyExp} />
-              <DataItem label="Newborn experience" value={exp?.newbornExp} />
-              <DataItem label="Toddler experience" value={exp?.toddlerExp} />
-              <DataItem label="School-age experience" value={exp?.schoolAgeExp} />
-              <DataItem label="Multiple children" value={exp?.multipleChildrenExp} />
-              <DataItem label="Additional needs" value={exp?.additionalNeedsExp} />
-              <DataItem label="Additional needs detail" value={exp?.additionalNeedsDetail} fullWidth />
-              <DataItem label="Previous roles" value={exp?.previousRoles} fullWidth />
+              <DataItem label="Years of professional experience" value={exp?.professionalChildcareExperienceYears != null ? `${exp.professionalChildcareExperienceYears} years` : undefined} />
+              <DataItem label="Previous childcare experience" value={exp?.previousChildcareExperience} fullWidth />
+              <DataItem label="Multiple children experience" value={exp?.multipleChildrenExperience} fullWidth />
+              <DataItem label="Additional needs experience" value={exp?.additionalNeedsExperience} fullWidth />
             </div>
-            <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-              <DataItem label="Childcare qualification" value={qual?.childcareQualifications} fullWidth />
-              <DataItem label="Other qualifications" value={qual?.otherQualifications} fullWidth />
-              <DataItem label="Paediatric First Aid" value={qual?.paediatricFirstAid} />
-              <DataItem label="Other first aid" value={qual?.otherFirstAid} />
-              <DataItem label="Other certificates" value={qual?.otherCertificates} fullWidth />
+            <div>
+              <p className="text-xs font-semibold text-[#667085] uppercase tracking-wider mb-3">Age Group Experience (years)</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-4">
+                <DataItem label="Newborns" value={exp?.ageGroupExperience?.newborns != null ? `${exp.ageGroupExperience.newborns} yrs` : undefined} />
+                <DataItem label="Toddlers" value={exp?.ageGroupExperience?.toddlers != null ? `${exp.ageGroupExperience.toddlers} yrs` : undefined} />
+                <DataItem label="Pre-school" value={exp?.ageGroupExperience?.preschool != null ? `${exp.ageGroupExperience.preschool} yrs` : undefined} />
+                <DataItem label="School age" value={exp?.ageGroupExperience?.schoolAge != null ? `${exp.ageGroupExperience.schoolAge} yrs` : undefined} />
+                <DataItem label="Teenagers" value={exp?.ageGroupExperience?.teenagers != null ? `${exp.ageGroupExperience.teenagers} yrs` : undefined} />
+              </div>
             </div>
           </DetailCard>
 
-          <DetailCard title="About You" icon={FileText}>
-            <div className="flex flex-col gap-5">
-              <DataItem label="Tell us about yourself" value={about?.aboutYourself} fullWidth />
-              <DataItem label="Why do you want to work as a nanny?" value={about?.whyNanny} fullWidth />
-              <DataItem label="What do you enjoy most about childcare?" value={about?.enjoyAboutChildcare} fullWidth />
-              <DataItem label="What type of family/role are you looking for?" value={about?.familyType} fullWidth />
+          {/* Qualifications */}
+          <DetailCard title="Qualifications" icon={FileText}>
+            <div className="grid grid-cols-2 gap-y-4 gap-x-6">
+              <DataItem label="Enhanced DBS" value={qual?.enhancedDBS} />
+              <DataItem label="Paediatric First Aid" value={qual?.paediatricFirstAid} />
+              <DataItem label="Childcare qualifications" value={qual?.childcareQualifications} fullWidth />
+              <DataItem label="Other qualifications" value={qual?.otherQualifications} fullWidth />
             </div>
           </DetailCard>
         </div>
 
         {/* Right column */}
         <div className="flex flex-col gap-6">
-          <DetailCard title="Availability & Preferences" icon={Clock}>
+          {/* Work Preferences */}
+          <DetailCard title="Work Preferences" icon={Clock}>
             <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-              <DataItem label="Start date" value={avail?.startDate} />
-              <DataItem label="Work type" value={avail?.workType} />
-              <DataItem label="Live-in / Live-out" value={avail?.liveInOut} />
-              <DataItem label="Max distance" value={avail?.maxDistance} />
-              <DataItem label="Hours available" value={avail?.hoursAvailable} />
-              <DataItem label="Preferred hours" value={avail?.preferredHours} />
-              <DataItem label="Weekend availability" value={avail?.weekendAvailability} />
-              <DataItem label="Evening availability" value={avail?.eveningAvailability} />
-              <DataItem label="Days available" value={availableDays.length ? availableDays.join(', ') : undefined} fullWidth />
-              <DataItem label="Areas willing to work" value={avail?.areasWillingToWork} fullWidth />
+              <DataItem label="Work types" value={wp?.workTypes} fullWidth />
+              <DataItem label="Working arrangement" value={wp?.workingArrangement} />
+              <DataItem label="Preferred working hours" value={wp?.preferredWorkingHours} />
+              <DataItem label="Areas willing to work" value={wp?.areasWillingToWork} fullWidth />
+              <DataItem label="Maximum travel distance" value={wp?.maximumTravelDistance} />
+              <DataItem label="Start date" value={wp?.startDate} />
             </div>
           </DetailCard>
 
-          <DetailCard title="Skills" icon={CheckCircle}>
-            {skillsList.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {skillsList.map(s => (
+          {/* Skills */}
+          <DetailCard title="Skills & Interests" icon={CheckCircle}>
+            {sk?.skills?.length > 0 ? (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {sk.skills.map(s => (
                   <span key={s} className="px-3 py-1.5 rounded-lg bg-[#0F4C5C]/5 text-[#0F4C5C] text-sm font-medium border border-[#0F4C5C]/20">
                     {s}
                   </span>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-[#667085]">No specific skills selected.</p>
+              <p className="text-sm text-[#667085] mb-4">No specific skills selected.</p>
             )}
-            {skills?.otherSkillsDetail && (
-              <div className="mt-4 pt-4 border-t border-[#E4E7EC]">
-                <DataItem label="Other skills detail" value={skills.otherSkillsDetail} fullWidth />
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4 pt-4 border-t border-[#E4E7EC]">
+              <div>
+                <p className="text-xs font-medium text-[#667085] mb-1.5">Driving licence</p>
+                <Badge label={sk?.drivingLicence ? 'Yes' : 'No'} positive={!!sk?.drivingLicence} />
               </div>
-            )}
+              <div>
+                <p className="text-xs font-medium text-[#667085] mb-1.5">Car access</p>
+                <Badge label={sk?.carAccess ? 'Yes' : 'No'} positive={!!sk?.carAccess} />
+              </div>
+              <DataItem label="Languages" value={sk?.languages} fullWidth />
+              <DataItem label="Other skills & interests" value={sk?.otherSkillsInterests} fullWidth />
+            </div>
           </DetailCard>
 
-          <DetailCard title="Checks & References" icon={ShieldCheckIcon}>
-            <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-6 pb-6 border-b border-[#E4E7EC]">
-              <DataItem label="Right to work in UK" value={rtw?.rightToWork} />
-              <DataItem label="Documentation type" value={rtw?.rightToWorkType} />
-              <DataItem label="RTW Details" value={rtw?.rightToWorkDetails} fullWidth />
+          {/* Additional Info */}
+          <DetailCard title="Additional Information" icon={Shield}>
+            <div className="grid grid-cols-2 gap-y-4 gap-x-6">
+              <div>
+                <p className="text-xs font-medium text-[#667085] mb-1.5">Swimming</p>
+                <Badge label={addInfo?.swimming || '—'} positive={addInfo?.swimming === 'Yes'} />
+              </div>
+              <div>
+                <p className="text-xs font-medium text-[#667085] mb-1.5">Animal allergy</p>
+                <Badge label={addInfo?.animalAllergy || '—'} positive={addInfo?.animalAllergy === 'No'} />
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-6 pb-6 border-b border-[#E4E7EC]">
-              <DataItem label="Current DBS" value={dbs?.hasCurrentDBS} />
-              <DataItem label="DBS type" value={dbs?.dbsType} />
-              <DataItem label="DBS date" value={dbs?.dbsDate} />
-              <DataItem label="Update Service" value={dbs?.dbsUpdateService} />
-              <DataItem label="Additional DBS info" value={dbs?.dbsAdditionalInfo} fullWidth />
-            </div>
+          </DetailCard>
 
-            <div className="flex flex-col gap-4">
-              <h3 className="text-sm font-semibold text-[#17202A]">References</h3>
-              {(references || []).map((ref, i) =>
-                ref?.employerName ? (
-                  <div key={i} className="p-4 rounded-lg bg-[#F7F5F0] border border-[#E4E7EC]">
-                    <p className="text-xs font-semibold text-[#0F4C5C] mb-3 uppercase tracking-wider">Reference {i + 1}</p>
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-4">
-                      <DataItem label="Employer" value={ref.employerName} />
-                      <DataItem label="Role" value={ref.role} />
-                      <DataItem label="Email" value={ref.email} />
-                      <DataItem label="Phone" value={ref.phone} />
-                      <DataItem label="Relationship" value={ref.relationship} />
-                      <DataItem label="Dates" value={`${ref.startDate || '—'} to ${ref.endDate || 'Present'}`} />
-                    </div>
-                  </div>
-                ) : null
-              )}
+          {/* Declaration */}
+          <DetailCard title="Declaration & Consent" icon={Shield}>
+            <div className="grid grid-cols-1 gap-2">
+              {[
+                { key: 'informationAccurate', label: 'Information accurate' },
+                { key: 'applicationReviewConsent', label: 'Application review consent' },
+                { key: 'referenceConsent', label: 'Reference consent' },
+                { key: 'privacyPolicyConsent', label: 'Privacy policy' },
+                { key: 'termsConsent', label: 'Terms & Conditions' },
+              ].map(({ key, label }) => (
+                <div key={key} className="flex items-center justify-between py-1.5">
+                  <span className="text-sm text-[#667085]">{label}</span>
+                  <Badge label={decl?.[key] ? '✓ Agreed' : '✗ Not agreed'} positive={!!decl?.[key]} />
+                </div>
+              ))}
             </div>
           </DetailCard>
 
@@ -371,14 +385,5 @@ export default function AdminApplicationDetailPage() {
         </div>
       </div>
     </AdminLayout>
-  )
-}
-
-function ShieldCheckIcon(props) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
   )
 }
