@@ -1,5 +1,5 @@
 import { Baby } from 'lucide-react'
-import StepProgress from '../ui/StepProgress'
+// import StepProgress from '../ui/StepProgress'
 
 export default function AppHeader({ currentStep }) {
   return (
@@ -29,7 +29,7 @@ export default function AppHeader({ currentStep }) {
       </div>
 
       {/* Progress indicator */}
-      <StepProgress currentStep={currentStep} />
+      {/* <StepProgress currentStep={currentStep} /> */}
     </header>
   )
 }

@@ -144,9 +144,9 @@ export default function ApplyPage() {
           <h1 className="text-xl font-bold text-[#17202A]">
             {STEP_NAMES[currentStep - 1]}
           </h1>
-          <p className="text-sm text-[#667085]">
+          {/* <p className="text-sm text-[#667085]">
             Step {currentStep} of {TOTAL_STEPS}
-          </p>
+          </p> */}
         </div>
 
         {/* Form card */}
