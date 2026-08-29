@@ -135,22 +135,12 @@ export default function ApplyPage() {
   const isLastStep = currentStep === TOTAL_STEPS;
 
   return (
-    <div className="min-h-screen bg-[#F7F5F0]">
-      <AppHeader currentStep={currentStep} />
+    <div className="min-h-screen bg-[#F8F3EA] flex flex-col">
+      <AppHeader />
 
-      <main className="max-w-3xl mx-auto sm:px-6 py-8">
-        {/* Step indicator label */}
-        <div className="mb-5 px-4 sm:px-0">
-          <h1 className="text-xl font-bold text-[#17202A]">
-            {STEP_NAMES[currentStep - 1]}
-          </h1>
-          {/* <p className="text-sm text-[#667085]">
-            Step {currentStep} of {TOTAL_STEPS}
-          </p> */}
-        </div>
-
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 py-8">
         {/* Form card */}
-        <div className="bg-white border-y sm:border border-[#E4E7EC] p-5 sm:p-7 w-full">
+        <div className="bg-white rounded-2xl border border-[#E4D8C7] shadow-sm p-6 sm:p-8 w-full">
           <FormProvider {...methods}>
             <form onSubmit={(e) => e.preventDefault()} noValidate>
               {renderStep()}
@@ -166,8 +156,8 @@ export default function ApplyPage() {
             <button
               type="button"
               onClick={handleBack}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#E4E7EC] text-sm font-medium
-                text-[#17202A] bg-white hover:bg-[#F7F5F0] transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#E4D8C7] text-sm font-medium
+                text-[#3B2923] bg-white hover:bg-[#F8F3EA] transition-colors"
             >
               <ChevronLeft size={16} />
               Back
@@ -178,8 +168,8 @@ export default function ApplyPage() {
             <button
               type="button"
               onClick={handleNext}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0F4C5C] text-white text-sm font-semibold
-                hover:bg-[#0B3D4A] transition-colors"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#3B2923] text-white text-sm font-semibold
+                hover:bg-[#2A1B17] transition-colors shadow-sm"
             >
               Continue
               <ChevronRight size={16} />
@@ -188,8 +178,8 @@ export default function ApplyPage() {
             <button
               type="button"
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#D98B5F] text-white text-sm font-semibold
-                hover:bg-[#C27A4E] transition-colors"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#B88A62] text-white text-sm font-semibold
+                hover:bg-[#9C7048] transition-colors shadow-sm"
             >
               <Send size={15} />
               Submit Application

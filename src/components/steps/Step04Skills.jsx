@@ -12,6 +12,8 @@ export default function Step04Skills() {
 
   const drivingLicence = useWatch({ control, name: 'drivingLicence' })
   const carAccess = useWatch({ control, name: 'carAccess' })
+  const swimming = useWatch({ control, name: 'swimming' })
+  const animalAllergy = useWatch({ control, name: 'animalAllergy' })
 
   return (
     <div>
@@ -45,13 +47,6 @@ export default function Step04Skills() {
               label="Homework support"
               value="Homework support"
               isSelected={skills?.includes('Homework support')}
-              {...register('skills')}
-            />
-            <CheckboxOption
-              id="skill-swimming"
-              label="Swimming"
-              value="Swimming"
-              isSelected={skills?.includes('Swimming')}
               {...register('skills')}
             />
             <CheckboxOption
@@ -100,6 +95,54 @@ export default function Step04Skills() {
         </FormField>
 
         <div className="pt-4 border-t border-gray-100 space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <FormField
+              label="Swimming"
+              error={errors.swimming?.message}
+              hint="Are you a confident swimmer?"
+            >
+              <div className="space-y-2 mt-1">
+                <RadioOption
+                  id="swim-yes"
+                  label="Yes"
+                  value="Yes"
+                  isSelected={swimming === 'Yes'}
+                  {...register('swimming')}
+                />
+                <RadioOption
+                  id="swim-no"
+                  label="No"
+                  value="No"
+                  isSelected={swimming === 'No'}
+                  {...register('swimming')}
+                />
+              </div>
+            </FormField>
+
+            <FormField
+              label="Allergic to animals"
+              error={errors.animalAllergy?.message}
+              hint="Are you allergic to dogs, cats, or other common pets?"
+            >
+              <div className="space-y-2 mt-1">
+                <RadioOption
+                  id="allergy-yes"
+                  label="Yes"
+                  value="Yes"
+                  isSelected={animalAllergy === 'Yes'}
+                  {...register('animalAllergy')}
+                />
+                <RadioOption
+                  id="allergy-no"
+                  label="No"
+                  value="No"
+                  isSelected={animalAllergy === 'No'}
+                  {...register('animalAllergy')}
+                />
+              </div>
+            </FormField>
+          </div>
+
           <FormField
             label="Languages spoken fluently"
             htmlFor="languages"
