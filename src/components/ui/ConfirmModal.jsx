@@ -8,6 +8,7 @@ export default function ConfirmModal({
   title = 'Submit your application?',
   description = 'Please confirm you are ready to submit. Once submitted, you will not be able to edit your application.',
   confirmText = 'Submit Application',
+  children,
 }) {
   if (!isOpen) return null
 
@@ -37,6 +38,7 @@ export default function ConfirmModal({
             <p className="text-sm text-[#7C6659] mt-1">
               {description}
             </p>
+            {children}
           </div>
           {!isSubmitting && (
             <button

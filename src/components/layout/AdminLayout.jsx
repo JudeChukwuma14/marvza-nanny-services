@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -6,6 +6,7 @@ import {
   FileText, Calendar, MessageSquare, Globe, ShieldCheck,
   BookOpen, LogOut, Menu, X, ChevronRight, Bell
 } from 'lucide-react'
+import { getAdminMe } from '../../api/applications'
 
 const NAV_GROUPS = [
   {
@@ -37,7 +38,7 @@ const NAV_GROUPS = [
       { to: '/admin/documents',      label: 'Documents',      icon: Briefcase },
       { to: '/admin/communications', label: 'Communications', icon: MessageSquare },
       { to: '/admin/content',        label: 'Content / CMS',  icon: Globe },
-      { to: '/admin/users',          label: 'Users & Roles',  icon: ShieldCheck },
+      { to: '/admin/users',          label: 'Users & Roles',  icon: ShieldCheck, superadminOnly: true },
       { to: '/admin/audit-log',      label: 'Audit Log',      icon: BookOpen },
     ],
   },
@@ -53,7 +54,7 @@ function Clock2(props) {
   )
 }
 
-function SidebarContent({ onNav }) {
+function SidebarContent({ onNav, isSuperAdmin }) {
   const navigate = useNavigate()
 
   function handleLogout() {
@@ -82,7 +83,7 @@ function SidebarContent({ onNav }) {
               {group.label}
             </p>
             <div className="flex flex-col gap-0.5">
-              {group.items.map((item) => (
+              {group.items.filter((item) => !item.superadminOnly || isSuperAdmin).map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
@@ -132,12 +133,20 @@ function SidebarContent({ onNav }) {
 
 export default function AdminLayout({ children, title }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [admin, setAdmin] = useState(null)
+
+  useEffect(() => {
+    getAdminMe().then(setAdmin).catch(() => {})
+  }, [])
+
+  const isSuperAdmin = admin?.role === 'superadmin'
+  const initial = (admin?.name || admin?.email || 'A').charAt(0).toUpperCase()
 
   return (
     <div className="min-h-screen bg-[#F8F3EA] flex">
       {/* Desktop sidebar */}
       <aside className="w-60 bg-[#3B2923] hidden lg:flex flex-col fixed inset-y-0 left-0 z-30">
-        <SidebarContent />
+        <SidebarContent isSuperAdmin={isSuperAdmin} />
       </aside>
 
       {/* Mobile sidebar */}
@@ -158,7 +167,7 @@ export default function AdminLayout({ children, title }) {
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 340, damping: 36 }}
             >
-              <SidebarContent onNav={() => setMobileOpen(false)} />
+              <SidebarContent onNav={() => setMobileOpen(false)} isSuperAdmin={isSuperAdmin} />
             </motion.aside>
           </>
         )}
@@ -183,8 +192,8 @@ export default function AdminLayout({ children, title }) {
               <Bell size={18} />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#B88A62]" />
             </button>
-            <div className="w-8 h-8 rounded-full bg-[#3B2923] flex items-center justify-center">
-              <span className="text-xs font-semibold text-white">A</span>
+            <div className="w-8 h-8 rounded-full bg-[#3B2923] flex items-center justify-center" title={admin?.name || admin?.email}>
+              <span className="text-xs font-semibold text-white">{initial}</span>
             </div>
           </div>
         </header>

@@ -1,9 +1,11 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Phone } from 'lucide-react'
 import PublicLayout from '../../components/layout/PublicLayout'
 import SEOMeta from '../../components/ui/SEOMeta'
 import FAQAccordion from '../../components/ui/FAQAccordion'
+import { fetchFaqs } from '../../api/content'
 
 /* ── Animation variants ────────────────────────────────────── */
 const fadeUp = {
@@ -20,55 +22,7 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 }
 
-/* ── Data ──────────────────────────────────────────────────── */
-const FAQS_GENERAL = [
-  {
-    question: 'What areas of London do you cover?',
-    answer: 'We cover all London boroughs, including Central, North, South, East, and West London. We can also accommodate requests just outside Greater London on a case-by-case basis.',
-  },
-  {
-    question: 'How does the vetting process work?',
-    answer: 'Our vetting is rigorous. Every nanny must have an enhanced DBS check, Paediatric First Aid, right to work in the UK, and at least two verified professional references. We also conduct thorough in-person or video interviews.',
-  },
-  {
-    question: 'What are your office hours?',
-    answer: 'Our standard office hours are Monday to Friday, 8am to 6pm. However, we monitor emergency requests outside of these hours to provide support when you need it most.',
-  },
-]
-
-const FAQS_FAMILIES = [
-  {
-    question: 'How quickly can you find a nanny for us?',
-    answer: 'For emergency cover, we can often place a nanny within hours. For permanent roles, the process typically takes 2-4 weeks to ensure we find the perfect match through careful curation and interviews.',
-  },
-  {
-    question: 'Do we have to pay a registration fee?',
-    answer: 'No, we do not charge an upfront registration fee to begin the search. You only pay our placement fee once you have successfully hired a nanny through us.',
-  },
-  {
-    question: 'What happens if the nanny isn\'t the right fit?',
-    answer: 'We offer a replacement guarantee period (typically 4 to 8 weeks, depending on the contract). If the placement does not work out during this time, we will find a suitable replacement free of charge.',
-  },
-  {
-    question: 'Do you help with contracts and payroll?',
-    answer: 'Yes. We provide standard employment contract templates and can recommend trusted specialist payroll providers to ensure you are fully compliant with UK employment law.',
-  },
-]
-
-const FAQS_NANNIES = [
-  {
-    question: 'Do I have to pay to register with Marvza?',
-    answer: 'Absolutely not. We never charge nannies a fee to register, interview, or be placed with a family.',
-  },
-  {
-    question: 'Do I need formal childcare qualifications?',
-    answer: 'While formal qualifications (like CACHE or Norland) are highly valued, they are not strictly required if you have significant, verifiable professional experience (usually 2+ years) working as a nanny.',
-  },
-  {
-    question: 'Will I be employed by Marvza or the family?',
-    answer: 'For permanent and most temporary roles, you will be directly employed by the family. For certain ad-hoc or event roles, different arrangements may apply, which will always be discussed upfront.',
-  },
-]
+/* ── FAQ content now comes from the CMS (see fetch in FAQsPage()) ────── */
 
 /* ── Reusable section helpers ──────────────────────────────── */
 function Section({ children, className = '' }) {
@@ -106,6 +60,16 @@ function SectionHeading({ children, centre = false }) {
 
 /* ── Main Component ─────────────────────────────────────────── */
 export default function FAQsPage() {
+  const [generalFaqs, setGeneralFaqs] = useState([])
+  const [familiesFaqs, setFamiliesFaqs] = useState([])
+  const [nanniesFaqs, setNanniesFaqs] = useState([])
+
+  useEffect(() => {
+    fetchFaqs('general').then(setGeneralFaqs).catch(() => {})
+    fetchFaqs('families').then(setFamiliesFaqs).catch(() => {})
+    fetchFaqs('nannies').then(setNanniesFaqs).catch(() => {})
+  }, [])
+
   return (
     <PublicLayout>
       <SEOMeta
@@ -160,17 +124,17 @@ export default function FAQsPage() {
           <div className="space-y-16">
             <Section>
               <h3 className="font-serif text-2xl font-semibold text-text mb-8">General Questions</h3>
-              <FAQAccordion items={FAQS_GENERAL} />
+              <FAQAccordion items={generalFaqs} />
             </Section>
 
             <Section>
               <h3 className="font-serif text-2xl font-semibold text-text mb-8">For Families</h3>
-              <FAQAccordion items={FAQS_FAMILIES} />
+              <FAQAccordion items={familiesFaqs} />
             </Section>
 
             <Section>
               <h3 className="font-serif text-2xl font-semibold text-text mb-8">For Nannies</h3>
-              <FAQAccordion items={FAQS_NANNIES} />
+              <FAQAccordion items={nanniesFaqs} />
             </Section>
           </div>
 

@@ -82,5 +82,11 @@ export async function getAdminMe() {
   return response.data.data
 }
 
+// ─── Admin: Get Dashboard Stats ──────────────────────────────────────────────
+export async function getAdminStats() {
+  const response = await api.get('/admin/stats')
+  return response.data.data
+}
+
 export { extractError }
 export default api

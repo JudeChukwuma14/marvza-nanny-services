@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Phone, Users, UserCheck, Heart, Shield, Clock, Award } from 'lucide-react'
@@ -9,6 +10,7 @@ import NannyCard from '../../components/common/NannyCard'
 import FAQAccordion from '../../components/ui/FAQAccordion'
 import { SERVICES } from '../../constants/services'
 import { FEATURED_NANNIES } from '../../constants/nannies'
+import { fetchTestimonials, fetchFaqs } from '../../api/content'
 import heroVideo from '../../assets/vid.mp4'
 
 
@@ -26,50 +28,6 @@ const staggerContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } },
 }
-
-/* ── Testimonials ──────────────────────────────────────────── */
-const TESTIMONIALS = [
-  {
-    quote: 'Our nanny has been an absolute blessing for our family. The agency matched us perfectly with someone who truly understands our children\'s needs — we couldn\'t be happier.',
-    name: 'The Harrington Family',
-    location: 'South West London',
-    service: 'Full-Time Nanny',
-    rating: 5,
-  },
-  {
-    quote: 'Finding reliable backup care in London felt impossible until we found Marvza. Seamless, professional and genuinely caring. They\'ve never let us down.',
-    name: 'The Chen Family',
-    location: 'North London',
-    service: 'Backup Nanny',
-    rating: 5,
-  },
-  {
-    quote: 'The emergency nanny service saved us on more than one occasion. Within hours we had a wonderful, qualified nanny at our door. Highly recommend to any London family.',
-    name: 'The Okonkwo Family',
-    location: 'Central London',
-    service: 'Emergency Nanny',
-    rating: 5,
-  },
-]
-
-const FAQ_PREVIEW = [
-  {
-    question: 'How does the matching process work?',
-    answer: 'After submitting your request, our team reviews your requirements and identifies suitable nannies from our curated network. We then introduce you to candidates we believe are a strong match for your family.',
-  },
-  {
-    question: 'Do I need to create an account to make an enquiry?',
-    answer: 'No. You can submit a childcare request or nanny application without creating an account.',
-  },
-  {
-    question: 'What areas of London do you cover?',
-    answer: 'We work across Greater London. Please include your postcode or area in your enquiry and we will confirm coverage.',
-  },
-  {
-    question: 'How quickly can a nanny be placed?',
-    answer: 'Timescales vary by service and availability. Emergency placements are prioritised. We will give you a realistic expectation during your consultation.',
-  },
-]
 
 const VETTING_ITEMS = [
   'Enhanced DBS Checks',
@@ -165,6 +123,14 @@ function WaveDivider({ fillColor = '#F8F3EA', className = '' }) {
 
 /* ── Main Component ─────────────────────────────────────────── */
 export default function HomePage() {
+  const [testimonials, setTestimonials] = useState([])
+  const [faqPreview, setFaqPreview] = useState([])
+
+  useEffect(() => {
+    fetchTestimonials().then(setTestimonials).catch(() => {})
+    fetchFaqs('homepage').then(setFaqPreview).catch(() => {})
+  }, [])
+
   return (
     <PublicLayout>
       <SEOMeta
@@ -447,7 +413,7 @@ export default function HomePage() {
           </Section>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map((t, i) => (
+            {testimonials.map((t, i) => (
               <TestimonialCard key={i} testimonial={t} index={i} />
             ))}
           </div>
@@ -462,7 +428,7 @@ export default function HomePage() {
             <SectionHeading centre>Frequently asked questions</SectionHeading>
           </Section>
 
-          <FAQAccordion items={FAQ_PREVIEW} />
+          <FAQAccordion items={faqPreview} />
 
           <motion.div
             className="text-center mt-8"

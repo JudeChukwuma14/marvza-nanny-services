@@ -11,14 +11,32 @@ export async function submitEnquiry(data) {
   return { reference: reference || enquiryReference }
 }
 
+// ─── Admin: Fetch All Enquiries ───────────────────────────────────────────────
 export async function fetchEnquiries(params = {}) {
-  // Admin placeholder
   const response = await api.get('/enquiries', { params })
   return response.data
 }
 
+// ─── Admin: Fetch Single Enquiry ──────────────────────────────────────────────
 export async function fetchEnquiry(id) {
-  // Admin placeholder
   const response = await api.get(`/enquiries/${id}`)
+  return response.data.data
+}
+
+// ─── Admin: Update Enquiry Status ─────────────────────────────────────────────
+export async function updateEnquiryStatus(id, status) {
+  const response = await api.patch(`/enquiries/${id}/status`, { status })
+  return response.data.data
+}
+
+// ─── Admin: Add Note ──────────────────────────────────────────────────────────
+export async function addEnquiryNote(id, text) {
+  const response = await api.post(`/enquiries/${id}/notes`, { text })
+  return response.data.data
+}
+
+// ─── Admin: Get Notes ─────────────────────────────────────────────────────────
+export async function getEnquiryNotes(id) {
+  const response = await api.get(`/enquiries/${id}/notes`)
   return response.data.data
 }

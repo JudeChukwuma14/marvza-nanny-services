@@ -23,21 +23,22 @@ import AdminLoginPage from "../pages/admin/AdminLoginPage";
 import AdminApplicationsPage from "../pages/admin/AdminApplicationsPage";
 import AdminApplicationDetailPage from "../pages/admin/AdminApplicationDetailPage";
 import AdminProtectedRoute from "../pages/admin/AdminProtectedRoute";
-
-import {
-  AdminDashboardPage,
-  AdminEnquiriesPage,
-  AdminFamiliesPage,
-  AdminChildrenPage,
-  AdminNanniesPage,
-  AdminBookingsPage,
-  AdminCommunicationsPage,
-  AdminContentPage,
-  AdminUsersPage,
-  AdminAuditLogPage,
-  AdminDocumentsPage,
-  AdminAvailabilityPage,
-} from "../pages/admin/PlaceholderAdminPages";
+import AdminDashboardPage from "../pages/admin/AdminDashboardPage";
+import AdminFamiliesPage from "../pages/admin/AdminFamiliesPage";
+import AdminFamilyDetailPage from "../pages/admin/AdminFamilyDetailPage";
+import AdminBookingsPage from "../pages/admin/AdminBookingsPage";
+import AdminBookingDetailPage from "../pages/admin/AdminBookingDetailPage";
+import AdminEnquiriesPage from "../pages/admin/AdminEnquiriesPage";
+import AdminEnquiryDetailPage from "../pages/admin/AdminEnquiryDetailPage";
+import AdminNanniesPage from "../pages/admin/AdminNanniesPage";
+import AdminNannyDetailPage from "../pages/admin/AdminNannyDetailPage";
+import AdminDocumentsPage from "../pages/admin/AdminDocumentsPage";
+import AdminAvailabilityPage from "../pages/admin/AdminAvailabilityPage";
+import AdminChildrenPage from "../pages/admin/AdminChildrenPage";
+import AdminUsersPage from "../pages/admin/AdminUsersPage";
+import AdminAuditLogPage from "../pages/admin/AdminAuditLogPage";
+import AdminContentPage from "../pages/admin/AdminContentPage";
+import AdminCommunicationsPage from "../pages/admin/AdminCommunicationsPage";
 
 /** Hides the WhatsApp button on admin routes — it's a public-contact affordance, not an admin tool. */
 function GlobalWhatsAppButton() {
@@ -116,10 +117,26 @@ export default function AppRouter() {
           }
         />
         <Route
+          path="/admin/enquiries/:id"
+          element={
+            <AdminProtectedRoute>
+              <AdminEnquiryDetailPage />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
           path="/admin/families"
           element={
             <AdminProtectedRoute>
               <AdminFamiliesPage />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/families/:id"
+          element={
+            <AdminProtectedRoute>
+              <AdminFamilyDetailPage />
             </AdminProtectedRoute>
           }
         />
@@ -140,10 +157,26 @@ export default function AppRouter() {
           }
         />
         <Route
+          path="/admin/nannies/:id"
+          element={
+            <AdminProtectedRoute>
+              <AdminNannyDetailPage />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
           path="/admin/bookings"
           element={
             <AdminProtectedRoute>
               <AdminBookingsPage />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/bookings/:id"
+          element={
+            <AdminProtectedRoute>
+              <AdminBookingDetailPage />
             </AdminProtectedRoute>
           }
         />
