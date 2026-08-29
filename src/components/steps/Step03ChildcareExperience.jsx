@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import FormField, { Input, Textarea, SectionHeader } from '../ui/FormField'
+import FormField, { Input, SectionHeader } from '../ui/FormField'
 
 export default function Step03ChildcareExperience() {
   const { register, formState: { errors } } = useFormContext()
@@ -117,53 +117,6 @@ export default function Step03ChildcareExperience() {
               />
             </FormField>
           </div>
-        </div>
-
-        <div className="pt-4 border-t border-gray-100 space-y-5">
-          <FormField
-            label="Previous childcare experience"
-            htmlFor="previousChildcareExperience"
-            error={errors.previousChildcareExperience?.message}
-            hint="Briefly describe your previous roles (e.g. Nanny, Nursery Worker)"
-          >
-            <Textarea
-              id="previousChildcareExperience"
-              rows={3}
-              placeholder="I have worked as a sole-charge nanny for..."
-              hasError={!!errors.previousChildcareExperience}
-              {...register('previousChildcareExperience')}
-            />
-          </FormField>
-
-          <FormField
-            label="Experience caring for multiple children"
-            htmlFor="multipleChildrenExperience"
-            error={errors.multipleChildrenExperience?.message}
-            hint="Describe your experience managing more than one child at a time"
-          >
-            <Textarea
-              id="multipleChildrenExperience"
-              rows={2}
-              placeholder="I have experience caring for twins..."
-              hasError={!!errors.multipleChildrenExperience}
-              {...register('multipleChildrenExperience')}
-            />
-          </FormField>
-
-          <FormField
-            label="Experience with children with additional needs"
-            htmlFor="additionalNeedsExperience"
-            error={errors.additionalNeedsExperience?.message}
-            hint="Please detail any Special Educational Needs (SEN) experience"
-          >
-            <Textarea
-              id="additionalNeedsExperience"
-              rows={2}
-              placeholder="I have worked with children who..."
-              hasError={!!errors.additionalNeedsExperience}
-              {...register('additionalNeedsExperience')}
-            />
-          </FormField>
         </div>
       </div>
     </div>

@@ -138,7 +138,6 @@ export default function AdminApplicationDetailPage() {
     experience: exp,
     skills: sk,
     qualifications: qual,
-    additionalInfo: addInfo,
     declaration: decl,
   } = app
 
@@ -223,9 +222,6 @@ export default function AdminApplicationDetailPage() {
           <DetailCard title="Childcare Experience" icon={Briefcase}>
             <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-6 pb-6 border-b border-[#E4E7EC]">
               <DataItem label="Years of professional experience" value={exp?.professionalChildcareExperienceYears != null ? `${exp.professionalChildcareExperienceYears} years` : undefined} />
-              <DataItem label="Previous childcare experience" value={exp?.previousChildcareExperience} fullWidth />
-              <DataItem label="Multiple children experience" value={exp?.multipleChildrenExperience} fullWidth />
-              <DataItem label="Additional needs experience" value={exp?.additionalNeedsExperience} fullWidth />
             </div>
             <div>
               <p className="text-xs font-semibold text-[#667085] uppercase tracking-wider mb-3">Age Group Experience (years)</p>
@@ -244,8 +240,6 @@ export default function AdminApplicationDetailPage() {
             <div className="grid grid-cols-2 gap-y-4 gap-x-6">
               <DataItem label="Enhanced DBS" value={qual?.enhancedDBS} />
               <DataItem label="Paediatric First Aid" value={qual?.paediatricFirstAid} />
-              <DataItem label="Childcare qualifications" value={qual?.childcareQualifications} fullWidth />
-              <DataItem label="Other qualifications" value={qual?.otherQualifications} fullWidth />
             </div>
           </DetailCard>
         </div>
@@ -264,20 +258,9 @@ export default function AdminApplicationDetailPage() {
             </div>
           </DetailCard>
 
-          {/* Skills */}
-          <DetailCard title="Skills & Interests" icon={CheckCircle}>
-            {sk?.skills?.length > 0 ? (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {sk.skills.map(s => (
-                  <span key={s} className="px-3 py-1.5 rounded-lg bg-[#0F4C5C]/5 text-[#0F4C5C] text-sm font-medium border border-[#0F4C5C]/20">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-[#667085] mb-4">No specific skills selected.</p>
-            )}
-            <div className="grid grid-cols-2 gap-y-3 gap-x-4 pt-4 border-t border-[#E4E7EC]">
+          {/* Driving & Languages */}
+          <DetailCard title="Driving & Languages" icon={CheckCircle}>
+            <div className="grid grid-cols-2 gap-y-3 gap-x-4">
               <div>
                 <p className="text-xs font-medium text-[#667085] mb-1.5">Driving licence</p>
                 <Badge label={sk?.drivingLicence ? 'Yes' : 'No'} positive={!!sk?.drivingLicence} />
@@ -287,21 +270,6 @@ export default function AdminApplicationDetailPage() {
                 <Badge label={sk?.carAccess ? 'Yes' : 'No'} positive={!!sk?.carAccess} />
               </div>
               <DataItem label="Languages" value={sk?.languages} fullWidth />
-              <DataItem label="Other skills & interests" value={sk?.otherSkillsInterests} fullWidth />
-            </div>
-          </DetailCard>
-
-          {/* Additional Info */}
-          <DetailCard title="Additional Information" icon={Shield}>
-            <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-              <div>
-                <p className="text-xs font-medium text-[#667085] mb-1.5">Swimming</p>
-                <Badge label={addInfo?.swimming || '—'} positive={addInfo?.swimming === 'Yes'} />
-              </div>
-              <div>
-                <p className="text-xs font-medium text-[#667085] mb-1.5">Animal allergy</p>
-                <Badge label={addInfo?.animalAllergy || '—'} positive={addInfo?.animalAllergy === 'No'} />
-              </div>
             </div>
           </DetailCard>
 

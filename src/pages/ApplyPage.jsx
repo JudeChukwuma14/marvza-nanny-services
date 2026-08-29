@@ -46,7 +46,7 @@ const STEP_NAMES = [
   "Personal Details",
   "Work Preferences",
   "Childcare Experience",
-  "Skills & Interests",
+  "Driving & Languages",
   "Qualifications",
   "Documents",
   "Declaration",

@@ -1,5 +1,5 @@
 import { useFormContext, useWatch } from 'react-hook-form'
-import FormField, { Textarea, SectionHeader, RadioOption } from '../ui/FormField'
+import FormField, { SectionHeader, RadioOption } from '../ui/FormField'
 
 export default function Step05Qualifications() {
   const { register, formState: { errors }, control } = useFormContext()
@@ -67,38 +67,6 @@ export default function Step05Qualifications() {
             />
           </div>
         </FormField>
-
-        <div className="pt-4 border-t border-gray-100 space-y-5">
-          <FormField
-            label="Childcare qualifications"
-            htmlFor="childcareQualifications"
-            error={errors.childcareQualifications?.message}
-            hint="List any relevant childcare qualifications (e.g. CACHE Level 3, Norland Diploma)"
-          >
-            <Textarea
-              id="childcareQualifications"
-              rows={3}
-              placeholder="I have a CACHE Level 3 Diploma in Childcare and Education..."
-              hasError={!!errors.childcareQualifications}
-              {...register('childcareQualifications')}
-            />
-          </FormField>
-
-          <FormField
-            label="Other relevant qualifications"
-            htmlFor="otherQualifications"
-            error={errors.otherQualifications?.message}
-            hint="List any other qualifications that might be relevant (e.g. Maternity Nurse Training, Sleep Consultant)"
-          >
-            <Textarea
-              id="otherQualifications"
-              rows={3}
-              placeholder="Additional courses or certifications..."
-              hasError={!!errors.otherQualifications}
-              {...register('otherQualifications')}
-            />
-          </FormField>
-        </div>
       </div>
     </div>
   )
