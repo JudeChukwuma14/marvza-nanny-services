@@ -32,7 +32,7 @@ export default function RequestConfirmationPage() {
             Request successfully submitted
           </h1>
           <p className="text-[#7C6659] text-base leading-relaxed max-w-md mx-auto mb-8">
-            Thank you for reaching out to Marvza. Our team will review your requirements and contact you shortly to discuss suitable candidates.
+            Thank you for reaching out to Marvza. Our team will review your requirements and contact you regarding availability. <strong>We aim to respond to emergency requests immediately.</strong>
           </p>
 
           <div className="bg-[#F8F3EA] border border-[#E4D8C7] rounded-xl p-5 mb-8 max-w-sm mx-auto">

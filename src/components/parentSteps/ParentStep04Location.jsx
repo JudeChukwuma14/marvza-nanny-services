@@ -67,6 +67,24 @@ export default function ParentStep04Location() {
           </div>
         </FormField>
 
+        {locationType === 'hotel' && (
+          <FormField
+            label="Hotel Name & Details"
+            htmlFor="hotelName"
+            required
+            error={errors.hotelName?.message}
+          >
+            <Input
+              id="hotelName"
+              placeholder="e.g. The Ritz, Piccadilly"
+              hasError={!!errors.hotelName}
+              {...register('hotelName', {
+                required: 'Hotel name is required',
+              })}
+            />
+          </FormField>
+        )}
+
         <FormField
           label="Living arrangement"
           required

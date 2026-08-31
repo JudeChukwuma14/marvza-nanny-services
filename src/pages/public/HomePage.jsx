@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, Phone, Users, UserCheck, Heart, Shield, Clock, Award } from 'lucide-react'
+import { ArrowRight, CheckCircle, Phone, Users, UserCheck, Heart, Shield, Clock, Award, Zap, Hotel, Moon } from 'lucide-react'
 import PublicLayout from '../../components/layout/PublicLayout'
 import SEOMeta from '../../components/ui/SEOMeta'
 import ServiceCard from '../../components/common/ServiceCard'
@@ -38,10 +38,10 @@ const VETTING_ITEMS = [
 ]
 
 const HOW_STEPS_FAMILIES = [
-  { num: '01', title: 'Consultation', body: 'Share your family\'s needs and values.' },
-  { num: '02', title: 'Curated Selection', body: 'Review profiles of pre-vetted candidates.' },
-  { num: '03', title: 'Interviews', body: 'Meet your top choices.' },
-  { num: '04', title: 'Placement & Support', body: 'Ongoing assistance after placement.' },
+  { num: '01', title: 'Tell us what you need', body: 'Share your family\'s requirements and schedule.' },
+  { num: '02', title: 'We identify suitable childcare', body: 'We match you with experienced, pre-vetted candidates.' },
+  { num: '03', title: 'Review & confirm', body: 'Meet your top choices or confirm the booking.' },
+  { num: '04', title: 'Your nanny arrives', body: 'Enjoy peace of mind with trusted, reliable childcare.' },
 ]
 
 const HOW_STEPS_NANNIES = [
@@ -163,7 +163,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Trusted childcare, thoughtfully matched to your family
+              Private Nannies & Mannies for London Families
             </motion.h1>
 
             <motion.p
@@ -172,7 +172,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              We connect families across London with experienced, professional nannies. Permanent, temporary, emergency and event childcare all personally matched by our agency team.
+              Permanent, temporary, emergency, evening, weekend, hotel and event childcare. Providing premium childcare across all London boroughs.
             </motion.p>
 
             <motion.div
@@ -201,19 +201,25 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
 
-            {/* Trust indicators */}
+            {/* Quick Links */}
             <motion.div
-              className="mt-8 sm:mt-10 flex flex-wrap gap-x-5 gap-y-2"
+              className="mt-8 sm:mt-10 flex flex-wrap gap-x-5 gap-y-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              {['Agency-led matching', 'London-based team', 'Trusted placements'].map((t) => (
-                <div key={t} className="flex items-center gap-2 text-sm text-white/75">
-                  <CheckCircle size={14} className="text-accent shrink-0" />
-                  {t}
-                </div>
-              ))}
+              <Link to="/services/backup-emergency-nanny" className="flex items-center gap-2 text-sm text-white hover:text-accent font-medium transition-colors">
+                <Zap size={16} className="text-accent shrink-0" />
+                Emergency Nanny
+              </Link>
+              <Link to="/services/hotel-nanny" className="flex items-center gap-2 text-sm text-white hover:text-accent font-medium transition-colors">
+                <Hotel size={16} className="text-accent shrink-0" />
+                Hotel Nanny
+              </Link>
+              <Link to="/services/evening-babysitter" className="flex items-center gap-2 text-sm text-white hover:text-accent font-medium transition-colors">
+                <Moon size={16} className="text-accent shrink-0" />
+                Evening Babysitter
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -257,24 +263,35 @@ export default function HomePage() {
             </SectionSubheading>
           </Section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {SERVICES.map((service, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SERVICES.filter(s => [
+              'full-time-nanny',
+              'backup-emergency-nanny',
+              'evening-babysitter',
+              'hotel-nanny',
+              'event-nanny',
+              'maternity-newborn-nanny',
+            ].includes(s.slug)).map((service, i) => (
               <ServiceCard key={service.slug} service={service} index={i} />
             ))}
           </div>
 
           <motion.div
-            className="text-center mt-10"
+            className="text-center mt-12 p-8 rounded-2xl bg-bg border border-border flex flex-col sm:flex-row items-center justify-between gap-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
+            <div className="text-left">
+              <h3 className="font-serif text-lg font-semibold text-text">Looking for Part-Time, Night Care, After-School or Travel Nannies?</h3>
+              <p className="text-sm text-text-muted mt-1">We offer 12 specialized childcare services across London to match your family's exact needs.</p>
+            </div>
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-green hover:text-accent transition-colors"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark transition-colors shadow-sm"
             >
-              View all services <ArrowRight size={14} />
+              Explore All 12 Services <ArrowRight size={14} />
             </Link>
           </motion.div>
         </div>

@@ -19,15 +19,15 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30"
+      className="fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-40 flex items-center justify-center gap-2.5 pl-3.5 pr-4.5 h-12 lg:h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 group"
       initial={{ opacity: 0, scale: 0.5, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.6, duration: 0.4, ease: 'easeOut' }}
-      whileHover={{ scale: 1.08 }}
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
-      <WhatsAppIcon className="relative" />
+      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30 group-hover:opacity-0 transition-opacity" />
+      <WhatsAppIcon className="relative w-6 h-6 shrink-0" width="24" height="24" />
     </motion.a>
   )
 }

@@ -95,7 +95,7 @@ export function TermsPage() {
         <p>Marvza acts as an introduction agency connecting families ("Clients") with childcare professionals ("Nannies"). We do not directly employ the Nannies unless explicitly stated for specific services.</p>
         <h2>2. Agency Fees</h2>
         <p>No fee is payable upon registration. An agency placement fee becomes payable only when a Client formally engages a Candidate introduced by Marvza. Our fees are detailed in our Fee Schedule provided upon registration.</p>
-        <h2>3. Client Responsibilities</h2>
+        <h2>3. Client Responsibilities & Family Terms</h2>
         <p>When employing a Nanny permanently, the Client becomes the employer and is entirely responsible for:</p>
         <ul>
           <li>Providing a suitable contract of employment.</li>
@@ -103,12 +103,50 @@ export function TermsPage() {
           <li>Complying with UK employment laws.</li>
           <li>Obtaining suitable Employer's Liability Insurance.</li>
         </ul>
-        <h2>4. Replacements and Refunds</h2>
+        <p><em>[PLACEHOLDER: Please insert your detailed family/client terms here regarding safe working environments, providing meals if applicable, and adherence to agreed schedules.]</em></p>
+        <h2>4. Cancellations (Temporary, Evening & Emergency Care)</h2>
+        <p><em>[PLACEHOLDER: Please insert your cancellation policy here. For example: "Cancellations made within 24 hours of the booking start time will incur a charge of X% of the agency fee and nanny’s scheduled wages."]</em></p>
+        <h2>5. Replacements and Refunds</h2>
         <p>If a permanent placement terminates within the first 8 weeks (the "Guarantee Period"), Marvza will endeavour to find one suitable replacement at no additional fee, provided the original fee was paid and the termination was not due to unreasonable demands by the Client.</p>
         <h2>5. Confidentiality</h2>
         <p>All Candidate information is strictly confidential and must not be passed to third parties. Unauthorised introductions to third parties will incur the full agency fee.</p>
-        <h2>6. Liability</h2>
+        <h2>6. Candidate Terms</h2>
+        <p><em>[PLACEHOLDER: Please insert candidate-specific terms here. Explain registration requirements, accuracy of CV/details, right-to-work documents, DBS requirements, safeguarding expectations, confidentiality, and what happens if they accept a placement.]</em></p>
+        <h2>7. Liability</h2>
         <p>While Marvza thoroughly vets all Candidates, the final decision to employ rests with the Client. Marvza cannot be held liable for any loss resulting from the introduction or employment of a Candidate.</p>
+      </LegalContent>
+    </PublicLayout>
+  )
+}
+
+export function SafeguardingPolicyPage() {
+  return (
+    <PublicLayout>
+      <SEOMeta title="Safeguarding Policy" description="Marvza's commitment to child safety and our safeguarding procedures." canonical="https://marvza.com/safeguarding" />
+      <LegalPageHero badge="Legal & Safety" title="Safeguarding Policy" updated="August 2026" />
+      <LegalContent>
+        <p>At Marvza, the safety and well-being of the children in our care is our highest priority.</p>
+        <h2>1. Our Commitment</h2>
+        <p>We believe every child has the right to be protected from harm. We enforce strict safeguarding standards across our agency and all childcare professionals we introduce.</p>
+        <h2>2. Reporting Concerns</h2>
+        <p>If you have any safeguarding concerns regarding a childcare professional introduced by Marvza, please contact our dedicated safeguarding officer immediately at <strong>safeguarding@marvza.com</strong> or call <strong>+44 7944 219712</strong>.</p>
+        <p><em>[PLACEHOLDER: Insert full safeguarding policy, including candidate standards, regular checks, and escalation procedures here.]</em></p>
+      </LegalContent>
+    </PublicLayout>
+  )
+}
+
+export function ComplaintsProcedurePage() {
+  return (
+    <PublicLayout>
+      <SEOMeta title="Complaints Procedure" description="How to raise a complaint or concern with Marvza." canonical="https://marvza.com/complaints" />
+      <LegalPageHero badge="Legal" title="Complaints Procedure" updated="August 2026" />
+      <LegalContent>
+        <p>We strive to provide an exceptional service to both families and childcare professionals. If you are dissatisfied with any aspect of our service, we want to hear from you so we can put it right.</p>
+        <h2>1. How to raise a complaint</h2>
+        <p>Please send details of your complaint to <strong>hello@marvza.com</strong>. We will acknowledge receipt of your complaint within 24 hours.</p>
+        <h2>2. Our Process</h2>
+        <p><em>[PLACEHOLDER: Insert details of your formal investigation process, timelines for resolution, and escalation paths here.]</em></p>
       </LegalContent>
     </PublicLayout>
   )

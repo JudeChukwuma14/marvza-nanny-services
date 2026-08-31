@@ -57,12 +57,14 @@ const LEGAL = [
   { label: 'Privacy Policy', to: '/privacy-policy' },
   { label: 'Cookie Policy', to: '/cookie-policy' },
   { label: 'Terms & Conditions', to: '/terms' },
+  { label: 'Safeguarding Policy', to: '/safeguarding' },
+  { label: 'Complaints Procedure', to: '/complaints' },
 ]
 
 const SOCIALS = [
-  { icon: FacebookIcon, label: 'Facebook', href: 'https://facebook.com' },
-  { icon: InstagramIcon, label: 'Instagram', href: 'https://instagram.com' },
-  { icon: LinkedinIcon, label: 'LinkedIn', href: 'https://linkedin.com' },
+  { icon: FacebookIcon, label: 'Facebook', href: 'https://www.facebook.com/share/19WphTo14D/?mibextid=wwXIfr' },
+  { icon: InstagramIcon, label: 'Instagram', href: 'https://www.instagram.com/marvzanannies?utm_source=qr' },
+  // { icon: LinkedinIcon, label: 'LinkedIn', href: 'https://linkedin.com' },
 ]
 
 export default function Footer() {
@@ -91,7 +93,7 @@ export default function Footer() {
               </div>
               <div>
                 <span className="text-[16px] font-bold font-serif text-white leading-tight block">Marvza</span>
-                <span className="text-[11px] text-white/50 leading-tight block">Private Nannies & Mannies · London</span>
+                <span className="text-[11px] text-white/50 leading-tight block">Private Nannies & Mannies</span>
               </div>
             </div>
             <p className="text-sm text-white/60 leading-relaxed mb-6 max-w-xs">

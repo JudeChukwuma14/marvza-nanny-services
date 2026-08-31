@@ -23,8 +23,8 @@
 
   /* ── Text ────────────────────────────────────────────────── */
   --color-text:            #3B2923;   /* Deep Espresso Brown — main copy */
-  --color-text-muted:      #7C6659;   /* Supporting text */
-  --color-text-subtle:     #A8978A;   /* Placeholder text */
+  --color-text-muted:      #5A4238;   /* Supporting text — strong contrast on cream */
+  --color-text-subtle:     #7C6659;   /* Placeholder/hint text */
 
   /* ── Borders ─────────────────────────────────────────────── */
   --color-border:          #E4D8C7;   /* Standard border */

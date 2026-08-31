@@ -13,6 +13,9 @@ import FAQsPage from "../pages/public/FAQsPage";
 import PrivacyPolicyPage from "../pages/public/PrivacyPolicyPage";
 import CookiePolicyPage from "../pages/public/CookiePolicyPage";
 import TermsPage from "../pages/public/TermsPage";
+import SafeguardingPolicyPage from "../pages/public/SafeguardingPolicyPage";
+import ComplaintsProcedurePage from "../pages/public/ComplaintsProcedurePage";
+import ManniesPage from "../pages/public/ManniesPage";
 
 import RequestNannyPage from "../pages/parent/RequestNannyPage";
 import RequestConfirmationPage from "../pages/parent/RequestConfirmationPage";
@@ -68,6 +71,9 @@ export default function AppRouter() {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/cookie-policy" element={<CookiePolicyPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/safeguarding" element={<SafeguardingPolicyPage />} />
+        <Route path="/complaints" element={<ComplaintsProcedurePage />} />
+        <Route path="/mannies" element={<ManniesPage />} />
 
         {/* Parent Request routes */}
         <Route path="/request-nanny" element={<RequestNannyPage />} />

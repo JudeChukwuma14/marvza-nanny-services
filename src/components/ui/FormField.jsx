@@ -37,7 +37,7 @@ export const Input = forwardRef(({ hasError, className = '', ...props }, ref) =>
   return (
     <input
       ref={ref}
-      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-[#3B2923] placeholder-[#A8978A] bg-white transition-colors
+      className={`w-full px-3.5 py-2.5 rounded-lg border text-[16px] sm:text-sm text-[#3B2923] placeholder-[#A8978A] bg-white transition-colors
         focus:outline-none focus:ring-2 focus:ring-[#3B2923]/20 focus:border-[#3B2923]
         ${hasError
           ? 'border-[#B94A48] focus:ring-[#B94A48]/20'
@@ -56,7 +56,7 @@ export const Select = forwardRef(({ hasError, children, className = '', ...props
   return (
     <select
       ref={ref}
-      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-[#3B2923] bg-white transition-colors
+      className={`w-full px-3.5 py-2.5 rounded-lg border text-[16px] sm:text-sm text-[#3B2923] bg-white transition-colors
         focus:outline-none focus:ring-2 focus:ring-[#3B2923]/20 focus:border-[#3B2923]
         ${hasError
           ? 'border-[#B94A48] focus:ring-[#B94A48]/20'
@@ -77,7 +77,7 @@ export const Textarea = forwardRef(({ hasError, className = '', ...props }, ref)
   return (
     <textarea
       ref={ref}
-      className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-[#3B2923] placeholder-[#A8978A] bg-white transition-colors resize-none
+      className={`w-full px-3.5 py-2.5 rounded-lg border text-[16px] sm:text-sm text-[#3B2923] placeholder-[#A8978A] bg-white transition-colors resize-none
         focus:outline-none focus:ring-2 focus:ring-[#3B2923]/20 focus:border-[#3B2923]
         ${hasError
           ? 'border-[#B94A48] focus:ring-[#B94A48]/20'

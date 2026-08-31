@@ -2,7 +2,7 @@ import { useParams, Navigate, Link } from 'react-router-dom'
 import PublicLayout from '../../components/layout/PublicLayout'
 import SEOMeta from '../../components/ui/SEOMeta'
 import FAQAccordion from '../../components/ui/FAQAccordion'
-import { getServiceBySlug } from '../../constants/services'
+import { getServiceBySlug, SERVICES } from '../../constants/services'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Shield } from 'lucide-react'
 
@@ -18,9 +18,30 @@ export default function ServiceDetailPage() {
 
   if (!service) return <Navigate to="/services" replace />
 
+  const relatedServices = SERVICES.filter(s => s.slug !== slug).slice(0, 3)
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.name,
+    "description": service.seoDescription || service.description,
+    "provider": {
+      "@type": "ChildCare",
+      "name": "Marvza Private Nannies & Mannies",
+      "url": "https://marvza.com"
+    },
+    "areaServed": "London",
+    "url": `https://marvza.com/services/${slug}`
+  }
+
   return (
     <PublicLayout>
-      <SEOMeta title={service.name} description={service.description} canonical={`https://marvza.com/services/${slug}`} />
+      <SEOMeta 
+        title={service.seoTitle || service.name} 
+        description={service.seoDescription || service.description} 
+        canonical={`https://marvza.com/services/${slug}`} 
+        schema={serviceSchema}
+      />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-green min-h-[55vh] flex items-center">
@@ -43,7 +64,7 @@ export default function ServiceDetailPage() {
               className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-[1.15] mb-5"
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
             >
-              {service.name}
+              {service.h1Title || service.name}
             </motion.h1>
             <motion.p
               className="text-base sm:text-lg text-accent font-medium mb-4"
@@ -55,12 +76,15 @@ export default function ServiceDetailPage() {
               className="text-white/65 text-base leading-relaxed max-w-xl mb-8"
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {service.description}
+              {service.heroParagraph || service.description}
             </motion.p>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
-              <Link to="/request-nanny" className="inline-flex items-center gap-2 px-7 py-4 rounded-2xl bg-accent text-white font-semibold hover:bg-accent-dark transition-colors shadow-lg shadow-accent/20">
-                Request this service <ArrowRight size={16} />
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="flex flex-col sm:flex-row gap-4">
+              <Link to="/request-nanny" className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-accent text-white font-semibold hover:bg-accent-dark transition-colors shadow-lg shadow-accent/20">
+                {service.primaryCTA || 'Request this service'} <ArrowRight size={16} />
               </Link>
+              <a href="tel:+447944219712" className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl border border-white/20 text-white font-semibold hover:bg-white/10 transition-colors">
+                Call Marvza
+              </a>
             </motion.div>
           </div>
         </div>
@@ -73,7 +97,7 @@ export default function ServiceDetailPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-4 flex items-center gap-2 text-sm text-white/90">
             <Shield size={14} className="text-accent" />
-            <span className="font-medium drop-shadow-md">Fully Vetted Service</span>
+            <span className="font-medium drop-shadow-md">Rigorous Vetting Process</span>
           </div>
         </div>
       )}
@@ -126,14 +150,14 @@ export default function ServiceDetailPage() {
                   to="/request-nanny"
                   className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark transition-colors"
                 >
-                  Request this service <ArrowRight size={14} />
+                  {service.primaryCTA || 'Request this service'} <ArrowRight size={14} />
                 </Link>
-                <Link
-                  to="/contact"
+                <a
+                  href="tel:+447944219712"
                   className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-green/25 text-green text-sm font-semibold hover:bg-green/5 transition-colors mt-3"
                 >
-                  Ask a question
-                </Link>
+                  Speak to Our Team
+                </a>
               </motion.div>
             </div>
           </div>
@@ -157,6 +181,24 @@ export default function ServiceDetailPage() {
           </div>
         </section>
       )}
+
+      {/* ── RELATED SERVICES (Internal Linking) ──────────────── */}
+      <section className="py-16 sm:py-20 bg-bg/50 border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-serif text-2xl font-semibold text-text mb-8">Other services you might need</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {relatedServices.map(rs => (
+              <Link key={rs.slug} to={`/services/${rs.slug}`} className="group block bg-white rounded-2xl p-6 border border-border hover:shadow-md transition-shadow">
+                <h3 className="font-serif font-semibold text-lg text-text mb-2 group-hover:text-green transition-colors">{rs.name}</h3>
+                <p className="text-sm text-text-muted line-clamp-2">{rs.description}</p>
+                <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-green uppercase tracking-wide">
+                  View Service <ArrowRight size={14} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── RELATED CTA ──────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-white text-center">

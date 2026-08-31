@@ -126,7 +126,7 @@ export default function ParentStep07Review({ setCurrentStep }) {
         <div className="p-4 sm:p-5 rounded-xl border border-[#E4D8C7]">
           <CheckboxOption
             id="agreeToContact"
-            label="I confirm this information is accurate and agree to be contacted about my request."
+            label={<>I confirm this information is accurate and agree to be contacted about my request in accordance with the <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#B88A62] hover:text-[#9C7048] underline">Privacy Policy</a>.</>}
             isSelected={!!values.agreeToContact}
             error={!!errors.agreeToContact}
             {...register('agreeToContact', { required: 'You must agree to this to continue' })}

@@ -10,6 +10,10 @@ export default function ParentStep03Children() {
   return (
     <div className="animate-fade-in-up">
       <SectionHeader title="Children Details" description="Tell us about your children." />
+      
+      <p className="text-xs text-[#7C6659] mb-5 leading-relaxed bg-[#F8F3EA] p-3 rounded-lg border border-[#E4D8C7]">
+        <strong>Privacy Note:</strong> We collect this information strictly to ensure a safe and appropriate childcare match. Your family's data is handled securely in accordance with our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#B88A62] hover:text-[#9C7048] font-medium underline">Privacy Policy</a>.
+      </p>
 
       <div className="space-y-5">
         {fields.map((field, index) => (

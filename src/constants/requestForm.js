@@ -23,7 +23,7 @@ export const HOURS_PER_WEEK_OPTIONS = [
 
 export const LOCATION_TYPE_OPTIONS = [
   { value: 'own-home', label: 'In your own home' },
-  { value: 'nanny-home', label: "At the nanny's home" },
+  { value: 'hotel', label: 'Hotel' },
   { value: 'either', label: 'Either works' },
 ]
 

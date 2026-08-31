@@ -12,6 +12,15 @@ export default function ParentStep02Schedule() {
       <SectionHeader title="Schedule Details" description="When do you need childcare?" />
 
       <div className="space-y-6">
+        <div className="bg-[#B94A48]/5 p-4 rounded-xl border border-[#B94A48]/20">
+          <CheckboxOption
+            id="isUrgent"
+            label="Urgent Request: I need childcare today or within 24 hours"
+            value="true"
+            isSelected={useWatch({ control, name: 'isUrgent' })}
+            {...register('isUrgent')}
+          />
+        </div>
         <FormField
           label="Which days do you need care?"
           required

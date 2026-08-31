@@ -29,9 +29,9 @@ const STATS = [
 ]
 
 const TIMELINE = [
-  { year: 'The Beginning', title: 'Founded with Purpose', body: 'Marvza was started by a working London parent who struggled to find trustworthy, flexible childcare. The vision was simple: build an agency that puts families and nannies first.' },
-  { year: 'Growing Trust', title: 'Building the Network', body: 'Through word of mouth and a reputation for careful matching, Marvza grew to serve families across every London borough — from Hampstead to Greenwich.' },
-  { year: 'Today', title: 'A Trusted Partner', body: 'Today, Marvza offers 12 distinct childcare services and has placed hundreds of nannies with London families. Our vetting standards and personal approach remain unchanged.' },
+  { year: 'The Beginning', title: 'Founded by a Parent, for Parents', body: 'Marvza was born out of frustration. As a working London parent, our founder struggled to find childcare that was not only reliable but felt genuinely safe. The vision was simple: build a London agency that vets nannies as rigorously as a parent would, and treats families as partners, not just clients.' },
+  { year: 'Our Approach', title: 'Quality over Volume', body: 'We purposefully remain a boutique London agency. We don’t just forward CVs; we personally interview every candidate, verify references, and check enhanced DBS statuses. If we wouldn’t leave our own children with them, we don’t recommend them.' },
+  { year: 'Today', title: 'A Trusted London Partner', body: 'Today, Marvza offers 12 distinct childcare services and has placed hundreds of nannies with families from Hampstead to Greenwich. Our commitment remains unchanged: providing the highest standard of safe, experienced childcare in London.' },
 ]
 
 const TEAM_VALUES = [
@@ -71,7 +71,7 @@ export default function AboutPage() {
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-green min-h-[55vh] flex items-center">
         <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 hidden lg:block">
-          <img src={londonAerialImg} alt="London aerial view" className="w-full h-full object-cover" />
+          <img src={londonAerialImg} alt="Aerial view of London representing Marvza's service across all boroughs" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-green via-green/60 to-transparent" />
         </div>
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
@@ -81,10 +81,10 @@ export default function AboutPage() {
               About Marvza
             </motion.p>
             <motion.h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white leading-[1.12] mb-5" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-              Built on trust, <span className="text-accent">driven by care</span>
+              Childcare you can <span className="text-accent">finally trust</span>
             </motion.h1>
             <motion.p className="text-base sm:text-lg text-white/65 leading-relaxed max-w-xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-              We're a London-based agency for private nannies and mannies that matches families with exceptional childcare professionals — personally, carefully, and with your family's best interests at heart.
+              We are a dedicated team of parents and childcare professionals based in London. We know first-hand how daunting it is to find the right nanny. That’s why we personally vet and match exceptional childcare professionals with London families—because getting childcare right is too important to automate.
             </motion.p>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
 
       {/* ── MOBILE IMAGE ─────────────────────────────────────── */}
       <div className="lg:hidden w-full h-56 sm:h-72 overflow-hidden">
-        <img src={londonAerialImg} alt="London aerial view" className="w-full h-full object-cover" />
+        <img src={londonAerialImg} alt="Aerial view of London representing Marvza's service across all boroughs" className="w-full h-full object-cover" />
       </div>
 
       {/* ── STATS BAR ────────────────────────────────────────── */}
@@ -120,7 +120,7 @@ export default function AboutPage() {
                 Marvza was born from a real need — a London parent who couldn't find childcare they truly trusted. We built the agency we wished existed: one that listens first, vets thoroughly, and matches personally.
               </SectionSubheading>
               <motion.p variants={fadeUp} className="text-base text-text-muted leading-relaxed mt-4">
-                We believe every family deserves a nanny they can rely on completely — and every nanny deserves to work with a family that values them. That belief shapes everything we do, from our vetting process to our ongoing placement support.
+                We believe every family deserves a nanny they can rely on completely. As parents ourselves, we understand that handing over the care of your children is the biggest leap of faith you can make. That belief shapes everything we do, from our face-to-face interviews with candidates to our strict requirement for paediatric first aid.
               </motion.p>
             </Section>
 
@@ -144,7 +144,7 @@ export default function AboutPage() {
 
       {/* ── IMAGE BREAK ──────────────────────────────────────── */}
       <div className="w-full h-64 sm:h-80 lg:h-96 overflow-hidden relative">
-        <img src={familyHeroImg} alt="A London family with their nanny" className="w-full h-full object-cover object-center" />
+        <img src={familyHeroImg} alt="Professional London nanny caring for children in a family home" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-black/10 to-black/30" />
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
           <p className="text-white text-sm font-semibold bg-black/30 backdrop-blur-sm px-5 py-2 rounded-full">Serving all London boroughs</p>

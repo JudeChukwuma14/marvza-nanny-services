@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail, Zap } from "lucide-react";
 import logo from "../../assets/images/baby.png";
 const CONTACT_PHONE = "+44 7944 219712";
 const CONTACT_PHONE_HREF = "tel:+447944219712";
@@ -204,7 +204,7 @@ export default function AppHeader() {
               >
                 <img
                   src={logo}
-                  alt="logo"
+                  alt="Marvza Private Nannies & Mannies Logo"
                   className="w-full h-full object-cover rounded-xl"
                 />
               </motion.div>
@@ -213,7 +213,7 @@ export default function AppHeader() {
                   Marvza
                 </span>
                 <span className="text-[10px] text-[#7C6659] leading-tight block">
-                  Private Nannies & Mannies · London
+                  Private Nannies & Mannies
                 </span>
               </div>
             </Link>
@@ -262,12 +262,12 @@ export default function AppHeader() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <Link
-                  to="/apply"
-                  className="inline-flex items-center px-4 py-2.5 rounded-xl border border-green/25 text-green text-sm font-semibold hover:bg-green/5 transition-colors"
+                <a
+                  href="tel:+447944219712"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#B94A48] text-white text-sm font-semibold hover:bg-[#a03d3c] transition-colors shadow-sm"
                 >
-                  Become a Nanny
-                </Link>
+                  <Zap size={14} /> Need Childcare Today?
+                </a>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.03 }}
@@ -320,7 +320,7 @@ export default function AppHeader() {
               <div className="flex items-center justify-between px-5 py-4 border-b border-[#E4D8C7]">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-green flex items-center justify-center">
-                    <img src={logo} alt="" />
+                    <img src={logo} alt="Marvza Private Nannies & Mannies Logo" />
                   </div>
                   <span className="font-bold font-serif text-green">
                     Marvza
@@ -406,17 +406,23 @@ export default function AppHeader() {
 
               {/* CTA buttons */}
               <div className="px-4 py-5 border-t border-[#E4D8C7] flex flex-col gap-3">
-                <Link
-                  to="/become-a-nanny"
-                  className="text-center py-2.5 rounded-xl border border-green text-green text-sm font-semibold hover:bg-green/5 transition-colors"
+                <a
+                  href="tel:+447944219712"
+                  className="text-center py-2.5 rounded-xl bg-[#B94A48] text-white text-sm font-semibold hover:bg-[#a03d3c] transition-colors flex items-center justify-center gap-2"
                 >
-                  Become a Nanny
-                </Link>
+                  <Zap size={16} /> Need Childcare Today?
+                </a>
                 <Link
                   to="/request-nanny"
                   className="text-center py-2.5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark transition-colors"
                 >
                   Request a Nanny
+                </Link>
+                <Link
+                  to="/become-a-nanny"
+                  className="text-center py-2.5 rounded-xl border border-green text-green text-sm font-semibold hover:bg-green/5 transition-colors"
+                >
+                  Become a Nanny
                 </Link>
               </div>
             </motion.div>

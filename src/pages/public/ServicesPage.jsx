@@ -59,21 +59,51 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* ── PRICING & FEES ────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-3">Transparent Pricing</p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-text mb-6">How pricing works</h2>
+          <p className="text-base text-text-muted mb-8 max-w-2xl mx-auto leading-relaxed">
+            We believe in complete transparency. Our pricing structure is split into two parts: the nanny’s salary (paid directly for their time) and the Marvza agency fee (for our matching, vetting, and support services).
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+            <div className="bg-bg rounded-2xl p-6 border border-border">
+              <h3 className="font-serif text-xl font-semibold text-text mb-3">1. Nanny Salary / Hourly Rate</h3>
+              <p className="text-sm text-text-muted">
+                This is paid directly to the childcare professional. Rates vary depending on the specific service (e.g., permanent vs. evening babysitter), the nanny's experience, and the hours required.
+              </p>
+            </div>
+            <div className="bg-bg rounded-2xl p-6 border border-border">
+              <h3 className="font-serif text-xl font-semibold text-text mb-3">2. Agency Placement Fee</h3>
+              <p className="text-sm text-text-muted">
+                This is paid to Marvza for sourcing, vetting, and placing the candidate. For permanent roles, this is a one-off percentage fee. For temporary or emergency cover, this is a daily or booking fee.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── VETTING STRIP ────────────────────────────────────── */}
       <section className="py-12 sm:py-16 bg-green">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12 text-center md:text-left">
             <div className="flex-1">
-              <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-3">Every Placement</p>
-              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-white leading-tight">Fully vetted, every time</h3>
+              <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-3">Trust & Safety</p>
+              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-white leading-tight mb-4">Rigorous screening process</h3>
+              <p className="text-sm text-white/70 max-w-md mx-auto md:mx-0">
+                Candidates must complete Marvza’s required screening and documentation checks before being approved for suitable placements.
+              </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 flex-wrap justify-center md:justify-end">
-              {['Enhanced DBS', 'Paediatric First Aid', 'Verified References', 'Face-to-Face Interview'].map((item) => (
-                <div key={item} className="flex items-center gap-2 text-sm text-white/80">
-                  <CheckCircle size={14} className="text-accent shrink-0" />
-                  {item}
-                </div>
-              ))}
+            <div className="flex-1 flex flex-col gap-4 justify-center md:justify-end">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {['Application & Interview', 'Right-to-Work Checks', 'Enhanced DBS', 'Verified References', 'First Aid Certification', 'Family Matching'].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-white/80">
+                    <CheckCircle size={14} className="text-accent shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
