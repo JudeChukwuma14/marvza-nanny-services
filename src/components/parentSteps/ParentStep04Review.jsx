@@ -54,7 +54,7 @@ function Field({ label, value }) {
   )
 }
 
-export default function ParentStep07Review({ setCurrentStep }) {
+export default function ParentStep04Review({ setCurrentStep }) {
   const { register, control, formState: { errors } } = useFormContext()
   const values = useWatch({ control })
 
@@ -65,6 +65,7 @@ export default function ParentStep07Review({ setCurrentStep }) {
       <SectionHeader title="Review Your Request" description="Please review your details before submitting." />
 
       <div className="space-y-4">
+        {/* Step 1: Service & Schedule */}
         <ReviewSection title="Service Requirements" step={1} setCurrentStep={setCurrentStep}>
           <Field label="Service type" value={service?.name} />
           <Field label="Frequency" value={labelFor(FREQUENCY_OPTIONS, values.frequency)} />
@@ -72,7 +73,7 @@ export default function ParentStep07Review({ setCurrentStep }) {
           <Field label="Preferred start date" value={values.preferredStartDate} />
         </ReviewSection>
 
-        <ReviewSection title="Schedule Details" step={2} setCurrentStep={setCurrentStep}>
+        <ReviewSection title="Schedule Details" step={1} setCurrentStep={setCurrentStep}>
           <Field label="Days needed" value={labelsFor(DAYS_OF_WEEK, values.daysNeeded)} />
           <Field label="Hours per week" value={labelFor(HOURS_PER_WEEK_OPTIONS, values.hoursPerWeek)} />
           {values.scheduleNotes && (
@@ -82,7 +83,8 @@ export default function ParentStep07Review({ setCurrentStep }) {
           )}
         </ReviewSection>
 
-        <ReviewSection title="Children" step={3} setCurrentStep={setCurrentStep}>
+        {/* Step 2: Family & Children */}
+        <ReviewSection title="Children" step={2} setCurrentStep={setCurrentStep}>
           {(values.children || []).map((child, i) => (
             <Field
               key={i}
@@ -96,14 +98,7 @@ export default function ParentStep07Review({ setCurrentStep }) {
           ))}
         </ReviewSection>
 
-        <ReviewSection title="Location & Travel" step={4} setCurrentStep={setCurrentStep}>
-          <Field label="Postcode" value={values.postcode} />
-          <Field label="Area" value={values.area} />
-          <Field label="Where care takes place" value={labelFor(LOCATION_TYPE_OPTIONS, values.locationType)} />
-          <Field label="Living arrangement" value={labelFor(LIVING_ARRANGEMENT_OPTIONS, values.livingArrangement)} />
-        </ReviewSection>
-
-        <ReviewSection title="Family Needs & Duties" step={5} setCurrentStep={setCurrentStep}>
+        <ReviewSection title="Family Needs & Duties" step={2} setCurrentStep={setCurrentStep}>
           <div className="sm:col-span-2">
             <Field label="Duties" value={labelsFor(DUTIES_OPTIONS, values.duties)} />
           </div>
@@ -116,13 +111,22 @@ export default function ParentStep07Review({ setCurrentStep }) {
           )}
         </ReviewSection>
 
-        <ReviewSection title="Your Details" step={6} setCurrentStep={setCurrentStep}>
+        {/* Step 3: Contact & Location */}
+        <ReviewSection title="Your Details" step={3} setCurrentStep={setCurrentStep}>
           <Field label="Name" value={`${values.parentFirstName || ''} ${values.parentLastName || ''}`.trim()} />
           <Field label="Email" value={values.email} />
           <Field label="Phone" value={values.phone} />
           <Field label="Preferred contact method" value={labelFor(CONTACT_METHOD_OPTIONS, values.contactMethod)} />
         </ReviewSection>
 
+        <ReviewSection title="Location & Travel" step={3} setCurrentStep={setCurrentStep}>
+          <Field label="Postcode" value={values.postcode} />
+          <Field label="Area" value={values.area} />
+          <Field label="Where care takes place" value={labelFor(LOCATION_TYPE_OPTIONS, values.locationType)} />
+          <Field label="Living arrangement" value={labelFor(LIVING_ARRANGEMENT_OPTIONS, values.livingArrangement)} />
+        </ReviewSection>
+
+        {/* Step 4 Declaration */}
         <div className="p-4 sm:p-5 rounded-xl border border-[#E4D8C7]">
           <CheckboxOption
             id="agreeToContact"

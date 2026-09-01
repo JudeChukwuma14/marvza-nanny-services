@@ -3,27 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import { useForm, FormProvider } from 'react-hook-form'
 import AppHeader from '../../components/layout/AppHeader'
 import ConfirmModal from '../../components/ui/ConfirmModal'
-import ParentStep01Service from '../../components/parentSteps/ParentStep01Service'
-import ParentStep02Schedule from '../../components/parentSteps/ParentStep02Schedule'
-import ParentStep03Children from '../../components/parentSteps/ParentStep03Children'
-import ParentStep04Location from '../../components/parentSteps/ParentStep04Location'
-import ParentStep05FamilyNeeds from '../../components/parentSteps/ParentStep05FamilyNeeds'
-import ParentStep06ParentDetails from '../../components/parentSteps/ParentStep06ParentDetails'
-import ParentStep07Review from '../../components/parentSteps/ParentStep07Review'
+import ParentStep01ServiceAndSchedule from '../../components/parentSteps/ParentStep01ServiceAndSchedule'
+import ParentStep02FamilyAndChildren from '../../components/parentSteps/ParentStep02FamilyAndChildren'
+import ParentStep03ContactAndLocation from '../../components/parentSteps/ParentStep03ContactAndLocation'
+import ParentStep04Review from '../../components/parentSteps/ParentStep04Review'
 import { submitEnquiry } from '../../api/enquiries'
 import { ChevronLeft, ChevronRight, Send } from 'lucide-react'
 
 const STEP_FIELDS = {
-  1: ['serviceType', 'frequency', 'isUrgent', 'preferredStartDate'],
-  2: ['daysNeeded', 'hoursPerWeek'],
-  3: ['children'],
-  4: ['postcode', 'area', 'locationType', 'livingArrangement'],
-  5: ['duties', 'experienceRequired'],
-  6: ['parentFirstName', 'parentLastName', 'email', 'phone', 'contactMethod'],
-  7: ['agreeToContact'],
+  1: ['serviceType', 'frequency', 'isUrgent', 'preferredStartDate', 'daysNeeded', 'hoursPerWeek'],
+  2: ['children', 'duties', 'experienceRequired'],
+  3: ['postcode', 'area', 'locationType', 'livingArrangement', 'parentFirstName', 'parentLastName', 'email', 'phone', 'contactMethod'],
+  4: ['agreeToContact'],
 }
 
-const TOTAL_STEPS = 7
+const TOTAL_STEPS = 4
 
 export default function RequestNannyPage() {
   const navigate = useNavigate()
@@ -59,7 +53,7 @@ export default function RequestNannyPage() {
   }
 
   async function handleFinalSubmit() {
-    const isValid = await trigger(STEP_FIELDS[7])
+    const isValid = await trigger(STEP_FIELDS[4])
     if (!isValid) {
       setShowModal(false)
       return
@@ -82,13 +76,10 @@ export default function RequestNannyPage() {
 
   function renderStep() {
     switch (currentStep) {
-      case 1: return <ParentStep01Service />
-      case 2: return <ParentStep02Schedule />
-      case 3: return <ParentStep03Children />
-      case 4: return <ParentStep04Location />
-      case 5: return <ParentStep05FamilyNeeds />
-      case 6: return <ParentStep06ParentDetails />
-      case 7: return <ParentStep07Review setCurrentStep={setCurrentStep} />
+      case 1: return <ParentStep01ServiceAndSchedule />
+      case 2: return <ParentStep02FamilyAndChildren />
+      case 3: return <ParentStep03ContactAndLocation />
+      case 4: return <ParentStep04Review setCurrentStep={setCurrentStep} />
       default: return null
     }
   }
