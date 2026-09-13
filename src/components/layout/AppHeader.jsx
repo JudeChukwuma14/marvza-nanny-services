@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Phone, Mail, Zap } from "lucide-react";
 import logo from "../../assets/images/baby.png";
-const CONTACT_PHONE = "+44 7944 219712";
+const CONTACT_PHONE = "02034112052";
 const CONTACT_PHONE_HREF = "tel:+447944219712";
 const CONTACT_EMAIL = "Hello@marvza.com";
 const CONTACT_EMAIL_HREF = "mailto:Hello@marvza.com";
@@ -320,7 +320,10 @@ export default function AppHeader() {
               <div className="flex items-center justify-between px-5 py-4 border-b border-[#E4D8C7]">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-green flex items-center justify-center">
-                    <img src={logo} alt="Marvza Private Nannies & Mannies Logo" />
+                    <img
+                      src={logo}
+                      alt="Marvza Private Nannies & Mannies Logo"
+                    />
                   </div>
                   <span className="font-bold font-serif text-green">
                     Marvza
@@ -419,7 +422,7 @@ export default function AppHeader() {
                   Request a Nanny
                 </Link>
                 <Link
-                  to="/become-a-nanny"
+                  to="/apply"
                   className="text-center py-2.5 rounded-xl border border-green text-green text-sm font-semibold hover:bg-green/5 transition-colors"
                 >
                   Become a Nanny

@@ -1,12 +1,20 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  Phone, Mail, MapPin, Clock, ArrowRight, Send,
-  CheckCircle, MessageSquare, Users, Baby,
-} from 'lucide-react'
-import PublicLayout from '../../components/layout/PublicLayout'
-import SEOMeta from '../../components/ui/SEOMeta'
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
+  Send,
+  CheckCircle,
+  MessageSquare,
+  Users,
+  Baby,
+} from "lucide-react";
+import PublicLayout from "../../components/layout/PublicLayout";
+import SEOMeta from "../../components/ui/SEOMeta";
 
 /* ── Animation variants ────────────────────────────────────── */
 const fadeUp = {
@@ -14,138 +22,141 @@ const fadeUp = {
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.5, ease: 'easeOut' },
+    transition: { delay: i * 0.12, duration: 0.5, ease: "easeOut" },
   }),
-}
+};
 
 const staggerContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } },
-}
+};
 
 /* ── Data ──────────────────────────────────────────────────── */
-const CONTACT_PHONE = '+44 7944 219712'
-const CONTACT_PHONE_HREF = 'tel:+447944219712'
-const CONTACT_EMAIL = 'Hello@marvza.com'
-const CONTACT_EMAIL_HREF = 'mailto:Hello@marvza.com'
+const CONTACT_PHONE = "02034112052";
+const CONTACT_PHONE_HREF = "tel:+447944219712";
+const CONTACT_EMAIL = "Hello@marvza.com";
+const CONTACT_EMAIL_HREF = "mailto:Hello@marvza.com";
 
 const CONTACT_METHODS = [
   {
     icon: Phone,
-    title: 'Call Us',
+    title: "Call Us",
     detail: CONTACT_PHONE,
-    sub: 'Mon–Fri, 8am–6pm',
+    sub: "Mon–Fri, 8am–6pm",
     href: CONTACT_PHONE_HREF,
-    actionLabel: 'Call now',
+    actionLabel: "Call now",
   },
   {
     icon: Mail,
-    title: 'Email Us',
+    title: "Email Us",
     detail: CONTACT_EMAIL,
-    sub: 'We typically reply within 24 hours',
+    sub: "We typically reply within 24 hours",
     href: CONTACT_EMAIL_HREF,
-    actionLabel: 'Send email',
+    actionLabel: "Send email",
   },
   {
     icon: MapPin,
-    title: 'Our Location',
-    detail: 'London, United Kingdom',
-    sub: 'Serving all London boroughs',
+    title: "Our Location",
+    detail: "London, United Kingdom",
+    sub: "Serving all London boroughs",
     href: null,
     actionLabel: null,
   },
   {
     icon: Clock,
-    title: 'Office Hours',
-    detail: 'Mon–Fri, 8am–6pm',
-    sub: 'Emergency cover available outside hours',
+    title: "Office Hours",
+    detail: "Mon–Fri, 8am–6pm",
+    sub: "Emergency cover available outside hours",
     href: null,
     actionLabel: null,
   },
-]
+];
 
 const ENQUIRY_TYPES = [
-  { value: 'general', label: 'General Enquiry' },
-  { value: 'family', label: 'I\'m a Family Looking for a Nanny' },
-  { value: 'nanny', label: 'I\'m a Nanny Looking for Work' },
-  { value: 'partnership', label: 'Business / Partnership' },
-  { value: 'other', label: 'Other' },
-]
+  { value: "general", label: "General Enquiry" },
+  { value: "family", label: "I'm a Family Looking for a Nanny" },
+  { value: "nanny", label: "I'm a Nanny Looking for Work" },
+  { value: "partnership", label: "Business / Partnership" },
+  { value: "other", label: "Other" },
+];
 
 const QUICK_LINKS = [
   {
     icon: Users,
-    title: 'Request a Nanny',
-    description: 'Tell us about your family and childcare needs.',
-    to: '/request-nanny',
-    cta: 'Start a request',
+    title: "Request a Nanny",
+    description: "Tell us about your family and childcare needs.",
+    to: "/request-nanny",
+    cta: "Start a request",
   },
   {
     icon: Baby,
-    title: 'Become a Nanny',
-    description: 'Join our network of trusted childcare professionals.',
-    to: '/apply',
-    cta: 'Apply now',
+    title: "Become a Nanny",
+    description: "Join our network of trusted childcare professionals.",
+    to: "/apply",
+    cta: "Apply now",
   },
-]
+];
 
 /* ── Reusable section helpers ──────────────────────────────── */
-function Section({ children, className = '' }) {
+function Section({ children, className = "" }) {
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: true, margin: "-80px" }}
       variants={staggerContainer}
     >
       {children}
     </motion.div>
-  )
+  );
 }
 
 function SectionLabel({ text }) {
   return (
-    <motion.p variants={fadeUp} className="text-xs font-semibold text-accent uppercase tracking-widest mb-3">
+    <motion.p
+      variants={fadeUp}
+      className="text-xs font-semibold text-accent uppercase tracking-widest mb-3"
+    >
       {text}
     </motion.p>
-  )
+  );
 }
 
 function SectionHeading({ children, centre = false }) {
   return (
     <motion.h2
       variants={fadeUp}
-      className={`font-serif text-3xl sm:text-4xl font-semibold text-text leading-tight ${centre ? 'text-center' : ''}`}
+      className={`font-serif text-3xl sm:text-4xl font-semibold text-text leading-tight ${centre ? "text-center" : ""}`}
     >
       {children}
     </motion.h2>
-  )
+  );
 }
 
 /* ── Contact Form ──────────────────────────────────────────── */
 function ContactForm() {
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    type: 'general',
-    message: '',
-  })
-  const [submitted, setSubmitted] = useState(false)
-  const [sending, setSending] = useState(false)
+    name: "",
+    email: "",
+    phone: "",
+    type: "general",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   function handleChange(e) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    setSending(true)
+    e.preventDefault();
+    setSending(true);
     // Simulate a short delay — replace with real API call when endpoint exists
-    await new Promise((r) => setTimeout(r, 800))
-    setSending(false)
-    setSubmitted(true)
+    await new Promise((r) => setTimeout(r, 800));
+    setSending(false);
+    setSubmitted(true);
   }
 
   return (
@@ -161,12 +172,24 @@ function ContactForm() {
           <div className="w-14 h-14 rounded-full bg-success-bg flex items-center justify-center mx-auto mb-5">
             <CheckCircle size={28} className="text-success" />
           </div>
-          <h3 className="font-serif text-2xl font-semibold text-text mb-3">Message received</h3>
+          <h3 className="font-serif text-2xl font-semibold text-text mb-3">
+            Message received
+          </h3>
           <p className="text-sm text-text-muted leading-relaxed max-w-sm mx-auto mb-6">
-            Thank you for getting in touch. A member of our team will respond within 24 hours.
+            Thank you for getting in touch. A member of our team will respond
+            within 24 hours.
           </p>
           <button
-            onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', type: 'general', message: '' }) }}
+            onClick={() => {
+              setSubmitted(false);
+              setForm({
+                name: "",
+                email: "",
+                phone: "",
+                type: "general",
+                message: "",
+              });
+            }}
             className="text-sm font-semibold text-accent hover:text-accent-dark transition-colors"
           >
             Send another message
@@ -186,8 +209,12 @@ function ContactForm() {
               <MessageSquare size={18} className="text-accent" />
             </div>
             <div>
-              <h3 className="font-serif text-lg font-semibold text-text">Send us a message</h3>
-              <p className="text-xs text-text-muted">We'll get back to you within 24 hours.</p>
+              <h3 className="font-serif text-lg font-semibold text-text">
+                Send us a message
+              </h3>
+              <p className="text-xs text-text-muted">
+                We'll get back to you within 24 hours.
+              </p>
             </div>
           </div>
 
@@ -195,7 +222,10 @@ function ContactForm() {
             {/* Name + Email row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="contact-name" className="block text-sm font-medium text-text mb-1.5">
+                <label
+                  htmlFor="contact-name"
+                  className="block text-sm font-medium text-text mb-1.5"
+                >
                   Full name <span className="text-error">*</span>
                 </label>
                 <input
@@ -210,7 +240,10 @@ function ContactForm() {
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" className="block text-sm font-medium text-text mb-1.5">
+                <label
+                  htmlFor="contact-email"
+                  className="block text-sm font-medium text-text mb-1.5"
+                >
                   Email address <span className="text-error">*</span>
                 </label>
                 <input
@@ -229,7 +262,10 @@ function ContactForm() {
             {/* Phone + Type row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="contact-phone" className="block text-sm font-medium text-text mb-1.5">
+                <label
+                  htmlFor="contact-phone"
+                  className="block text-sm font-medium text-text mb-1.5"
+                >
                   Phone number
                 </label>
                 <input
@@ -243,7 +279,10 @@ function ContactForm() {
                 />
               </div>
               <div>
-                <label htmlFor="contact-type" className="block text-sm font-medium text-text mb-1.5">
+                <label
+                  htmlFor="contact-type"
+                  className="block text-sm font-medium text-text mb-1.5"
+                >
                   What is this about?
                 </label>
                 <select
@@ -254,7 +293,9 @@ function ContactForm() {
                   className="w-full px-4 py-3 rounded-xl border border-border bg-bg text-sm text-text focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-colors appearance-none"
                 >
                   {ENQUIRY_TYPES.map((t) => (
-                    <option key={t.value} value={t.value}>{t.label}</option>
+                    <option key={t.value} value={t.value}>
+                      {t.label}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -262,7 +303,10 @@ function ContactForm() {
 
             {/* Message */}
             <div>
-              <label htmlFor="contact-message" className="block text-sm font-medium text-text mb-1.5">
+              <label
+                htmlFor="contact-message"
+                className="block text-sm font-medium text-text mb-1.5"
+              >
                 Your message <span className="text-error">*</span>
               </label>
               <textarea
@@ -300,7 +344,7 @@ function ContactForm() {
         </motion.form>
       )}
     </AnimatePresence>
-  )
+  );
 }
 
 /* ── Main Component ─────────────────────────────────────────── */
@@ -318,8 +362,9 @@ export default function ContactPage() {
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-            backgroundSize: '24px 24px',
+            backgroundImage:
+              "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+            backgroundSize: "24px 24px",
           }}
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-28">
@@ -338,8 +383,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              We'd love to{' '}
-              <span className="text-accent">hear from you</span>
+              We'd love to <span className="text-accent">hear from you</span>
             </motion.h1>
             <motion.p
               className="text-base sm:text-lg text-white/65 leading-relaxed max-w-xl"
@@ -347,7 +391,8 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Whether you're looking for a nanny, want to join our network, or simply have a question — our London-based team is here to help.
+              Whether you're looking for a nanny, want to join our network, or
+              simply have a question — our London-based team is here to help.
             </motion.p>
           </div>
         </div>
@@ -370,15 +415,24 @@ export default function ContactPage() {
                   <method.icon size={20} className="text-accent" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-text mb-0.5">{method.title}</p>
+                  <p className="text-sm font-semibold text-text mb-0.5">
+                    {method.title}
+                  </p>
                   {method.href ? (
-                    <a href={method.href} className="text-sm text-accent hover:text-accent-dark transition-colors font-medium">
+                    <a
+                      href={method.href}
+                      className="text-sm text-accent hover:text-accent-dark transition-colors font-medium"
+                    >
                       {method.detail}
                     </a>
                   ) : (
-                    <p className="text-sm text-text-muted font-medium">{method.detail}</p>
+                    <p className="text-sm text-text-muted font-medium">
+                      {method.detail}
+                    </p>
                   )}
-                  <p className="text-xs text-text-subtle mt-0.5">{method.sub}</p>
+                  <p className="text-xs text-text-subtle mt-0.5">
+                    {method.sub}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -400,7 +454,9 @@ export default function ContactPage() {
               {/* Quick links */}
               <Section>
                 <SectionLabel text="Quick Links" />
-                <p className="text-sm text-text-muted mb-5">Looking for something specific? These might help:</p>
+                <p className="text-sm text-text-muted mb-5">
+                  Looking for something specific? These might help:
+                </p>
               </Section>
 
               {QUICK_LINKS.map((link, i) => (
@@ -420,8 +476,12 @@ export default function ContactPage() {
                         <link.icon size={18} className="text-accent" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-sm font-semibold text-text mb-1">{link.title}</h4>
-                        <p className="text-xs text-text-muted leading-relaxed mb-2">{link.description}</p>
+                        <h4 className="text-sm font-semibold text-text mb-1">
+                          {link.title}
+                        </h4>
+                        <p className="text-xs text-text-muted leading-relaxed mb-2">
+                          {link.description}
+                        </p>
                         <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green group-hover:gap-2.5 transition-all">
                           {link.cta} <ArrowRight size={12} />
                         </span>
@@ -442,21 +502,36 @@ export default function ContactPage() {
                 <div
                   className="absolute inset-0 opacity-[0.04]"
                   style={{
-                    backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-                    backgroundSize: '20px 20px',
+                    backgroundImage:
+                      "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+                    backgroundSize: "20px 20px",
                   }}
                 />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-3">
                     <MapPin size={16} className="text-accent" />
-                    <p className="text-xs font-semibold text-accent uppercase tracking-widest">Based in London</p>
+                    <p className="text-xs font-semibold text-accent uppercase tracking-widest">
+                      Based in London
+                    </p>
                   </div>
                   <p className="text-sm text-white/75 leading-relaxed mb-4">
-                    Our team is based in London and we place nannies across all London boroughs. We're happy to discuss your location during your enquiry.
+                    Our team is based in London and we place nannies across all
+                    London boroughs. We're happy to discuss your location during
+                    your enquiry.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {['Central', 'North', 'South', 'East', 'West', 'Greater London'].map((area) => (
-                      <span key={area} className="text-[11px] font-medium text-white/60 bg-white/10 px-2.5 py-1 rounded-full">
+                    {[
+                      "Central",
+                      "North",
+                      "South",
+                      "East",
+                      "West",
+                      "Greater London",
+                    ].map((area) => (
+                      <span
+                        key={area}
+                        className="text-[11px] font-medium text-white/60 bg-white/10 px-2.5 py-1 rounded-full"
+                      >
                         {area}
                       </span>
                     ))}
@@ -498,11 +573,19 @@ export default function ContactPage() {
           <Section>
             <SectionLabel text="Have Questions?" />
             <SectionHeading centre>Check our FAQs first</SectionHeading>
-            <motion.p variants={fadeUp} className="text-base text-text-muted leading-relaxed max-w-xl mx-auto mt-3 mb-8">
-              Many common questions about our services, process, and pricing are already answered in our FAQ section.
+            <motion.p
+              variants={fadeUp}
+              className="text-base text-text-muted leading-relaxed max-w-xl mx-auto mt-3 mb-8"
+            >
+              Many common questions about our services, process, and pricing are
+              already answered in our FAQ section.
             </motion.p>
             <motion.div variants={fadeUp}>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="inline-block">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-block"
+              >
                 <Link
                   to="/faqs"
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-green/25 text-green text-sm font-semibold hover:bg-green/5 transition-colors"
@@ -515,5 +598,5 @@ export default function ContactPage() {
         </div>
       </section>
     </PublicLayout>
-  )
+  );
 }
